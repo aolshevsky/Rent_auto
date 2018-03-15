@@ -1,0 +1,81 @@
+﻿<Window x:Class="OOP.View.AdminMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOP.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Control Panel" Height="480" Width="1080" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+    <Grid Background="#FFEEEEEE" MouseDown="Grid_MouseDown">
+
+        <StackPanel VerticalAlignment="Top">
+            <Grid Background="#FF0069C0" Height="10"/>
+            <Grid Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+                    <TextBox materialDesign:HintAssist.Hint="SEARCH" Foreground="#b2bec3" Width="600" FontSize="20"/>
+                    <Button Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="#b2bec3" VerticalAlignment="Center" Margin="0 0 60 0">
+                        <materialDesign:PackIcon Kind="Magnify" />
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
+                        <materialDesign:PackIcon Kind="Logout"/>
+                    </Button>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0">
+                        <materialDesign:PackIcon Kind="Settings"/>
+                    </Button>
+                    <Button x:Name="ButtonFechar" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonFechar_Click">
+                        <materialDesign:PackIcon Kind="Power"/>
+                    </Button>
+
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <Grid Margin="250 55 0 0">
+            <Image Source="D:\Облако-_-\OneDrive\Лабораторные\OOP\OOP\OOP\Assets/main_car.jpg" Stretch="UniformToFill" Grid.ColumnSpan="2" Margin="0,0,-2.6,0" />
+            <Grid x:Name="GridPrincipal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Width="250" HorizontalAlignment="Left" Background="#303952">
+            <TextBlock Foreground="Gray" Width="200" Margin="25,20,25,385" TextAlignment="Justify" FontSize="50" >USER</TextBlock>
+            <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}" RenderTransformOrigin="0.502,0.489">
+                <Grid x:Name="GridCursor" Margin="0 100 0 0" Background="#FF0069C0" Width="10" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top"/>
+            </materialDesign:TransitioningContent>
+
+
+
+            <ListView x:Name="ListViewMenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0 100 0 0" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0">
+                <ListViewItem Height="40">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Home" Width="20" Height="20" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Home" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="40">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="TruckDelivery" Width="20" Height="20" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Cars" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="40">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="AccountStar" Width="20" Height="20" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Clientes" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="40">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Car" Width="20" Height="20" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="New car" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="40">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Monitor" Width="20" Height="20" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Reservation" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+        </Grid>
+
+    </Grid>
+</Window>

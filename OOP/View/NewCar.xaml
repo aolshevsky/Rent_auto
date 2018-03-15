@@ -1,0 +1,29 @@
+﻿<Window x:Class="OOP.View.NewCar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" Height="480" Width="720" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+
+    <Grid>
+        <TextBlock Margin="0,19,0,0" TextAlignment="Center" TextWrapping="Wrap" Height="64" FontSize="45" FontFamily="Franklin Gothic" Text="  ADD NEW CAR" Foreground="#95a5a6" VerticalAlignment="Top"/>
+        <Border  HorizontalAlignment="Left" Height="254" Margin="10,88,0,0" VerticalAlignment="Top" Width="671">
+            <ComboBox x:Name="cbBrande" materialDesign:HintAssist.Hint="   Brande" Margin="65,56,442,168"/>
+        </Border>
+        <TextBox Text="{Binding CarAct.NewCar.Model, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="txtModel" materialDesign:HintAssist.Hint="   Model" HorizontalAlignment="Left" Height="23" Margin="78,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <CheckBox IsChecked="{Binding Path=CarAct.NewCar.AirConditin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chAir" Content="Air conditioning" HorizontalAlignment="Left" Margin="78,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.509,0.056"/>
+        <ComboBox  x:Name="cbTransmission" materialDesign:HintAssist.Hint="   Transmission" HorizontalAlignment="Left" Margin="376,148,0,0" VerticalAlignment="Top" Width="179"/>
+        <ComboBox x:Name="cbType" materialDesign:HintAssist.Hint="   Car Type" HorizontalAlignment="Left" Margin="78,287,0,0" VerticalAlignment="Top" Width="162"/>
+        <RadioButton x:Name="rbSeats2" Content="2 seat" HorizontalAlignment="Left" Margin="376,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.768,0.556"/>
+        <RadioButton x:Name="rbSeats4" Content="4 seat" HorizontalAlignment="Left" Margin="462,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.875,0.444"/>
+        <RadioButton x:Name="rbSeats6" Content="6 seat" HorizontalAlignment="Left" Margin="546,199,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Path=CarAct.NewCar.FuelConsumtionPerHundredKm, UpdateSourceTrigger=PropertyChanged}" x:Name="txtFuel" materialDesign:HintAssist.Hint="   km/l" HorizontalAlignment="Left" Height="25" Margin="376,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Text="{Binding Path=CarAct.NewCar.ImageName, UpdateSourceTrigger=PropertyChanged}" x:Name="txtImage" materialDesign:HintAssist.Hint="   Image name" HorizontalAlignment="Left" Height="25" Margin="522,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Text="{Binding Path=CarAct.NewCar.Price, UpdateSourceTrigger=PropertyChanged}" x:Name="txtPrice" materialDesign:HintAssist.Hint="   Price per day $" HorizontalAlignment="Left" Height="25" Margin="376,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBox Text="{Binding Path=CarAct.NewCar.Year, UpdateSourceTrigger=PropertyChanged}" x:Name="txtYear" materialDesign:HintAssist.Hint="   Year" HorizontalAlignment="Left" Height="25" Margin="522,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <Button x:Name="btAdd" Click="btAdd_Click" Content="ADD" HorizontalAlignment="Left" Margin="191,373,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.37,0.438"/>
+        <Button x:Name="btCancel" Click="btCancel_Click" Content="Cancel" Background="Crimson" HorizontalAlignment="Left" Margin="376,373,0,0" VerticalAlignment="Top" Width="100"/>
+
+    </Grid>
+</Window>
