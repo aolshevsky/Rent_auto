@@ -86,7 +86,7 @@
     <Compile Include="ViewModel\Enumerations\Location.cs" />
     <Compile Include="ViewModel\Enumerations\Sex.cs" />
     <Compile Include="ViewModel\Enumerations\TransmissionType.cs" />
-    <Compile Include="ViewModel\ReserAction.cs" />
+    <Compile Include="ViewModel\BillAction.cs" />
     <Compile Include="ViewModel\Reservation.cs" />
     <Compile Include="View\AdminMain.xaml.cs">
       <DependentUpon>AdminMain.xaml</DependentUpon>

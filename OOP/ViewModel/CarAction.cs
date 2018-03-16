@@ -23,7 +23,15 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
-
+		public ObservableCollection<Car> Cars
+		{
+			get => cars;
+			set
+			{
+				cars = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public void AddCar()
 		{

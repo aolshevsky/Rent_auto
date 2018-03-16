@@ -15,9 +15,19 @@ namespace OOP.ViewModel
 	{
 
 		public AdminAuthorization adminLogin = new AdminAuthorization();
-		public CarAction carAct = new CarAction();
-		public ClientAction clientAct = new ClientAction();
+		private CarAction carAct = new CarAction();
+		private ClientAction clientAct = new ClientAction();
+		private BillAction billAct = new BillAction();
 
+		public BillAction BillAct
+		{
+			get => billAct;
+			set
+			{
+				billAct = value;
+				OnPropertyChanged();
+			}
+		}
 		public CarAction CarAct
 		{
 			get => carAct;

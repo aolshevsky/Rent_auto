@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -8,53 +9,47 @@ using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
-	public class AdminAuthorization : INotifyPropertyChanged
+	public class BillAction : INotifyPropertyChanged
 	{
-		private string username;
-		private string password;
+		public static ObservableCollection<Bill> bills = new ObservableCollection<Bill>();
 
-		public AdminAuthorization()
-		{
-			username = "";
-			password = "";
-		}
+		private Bill newBill = new Bill();
 
-		public string UserName
+		public Bill NewBill
 		{
-			get => username;
+			get => newBill;
 			set
 			{
-				username = value;
+				newBill = value;
 				OnPropertyChanged();
 			}
 		}
-		public string Password
+		public ObservableCollection<Bill> Bills
 		{
-			get => password;
+			get => bills;
 			set
 			{
-				password = value;
+				bills = value;
 				OnPropertyChanged();
 			}
 		}
 
-		public bool CheckLogPass()
+		public void AddReservation()
 		{
-			if (Password == "" && UserName == "")
-			{
-				return true;
-			}
-			return false;
+			newBill.Rent.TransformExtras();
+			newBill.CalculateTotalCost();
 		}
 
-		public bool IsEmpty()
+		public void DeleteReservation()
 		{
-			if (Password == "" || UserName == "")
-			{
-				return true;
-			}
-			return false;
+
 		}
+
+		public void EditReservation()
+		{
+
+		}
+
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")

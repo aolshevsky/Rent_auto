@@ -15,6 +15,15 @@ namespace OOP.ViewModel
 		public static ObservableCollection<Client> clients = new ObservableCollection<Client>();
 		private Client newClient = new Client();
 
+		public ObservableCollection<Client> Сlients
+		{
+			get => clients;
+			set
+			{
+				clients = value;
+				OnPropertyChanged();
+			}
+		}
 		public Client NewClient
 		{
 			get => newClient;

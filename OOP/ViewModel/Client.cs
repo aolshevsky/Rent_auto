@@ -22,12 +22,14 @@ namespace OOP.ViewModel
 		private string username;
 		private string password;
 		private string phoneNumber;
+		public static int ID = 0;
 
 		#endregion
 
 
 
 		#region properties
+		public int ClientId { get; set; }
 		public Sex Sex
 		{
 			get => sex;
@@ -36,7 +38,11 @@ namespace OOP.ViewModel
 		public DateTime DateOfBirth
 		{
 			get => dateOfBirth;
-			set => dateOfBirth = value;
+			set
+			{
+				dateOfBirth = value;
+				OnPropertyChanged();
+			}
 		}
 		public string City
 		{
@@ -115,17 +121,22 @@ namespace OOP.ViewModel
 				return age.Days / 365;
 			}
 		}
-
+		public string FullName => FirstName + " " + LastName;
 
 		#endregion
 
-		public Client() { }
+		public Client()
+		{
+			DateOfBirth = DateTime.Now;
+			SetId();
+		}
 
 		public Client(string firstName, string lastName)
 		{
 			this.FirstName = firstName;
 			this.LastName = lastName;
 		}
+		public void SetId() => ClientId = ID++;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")

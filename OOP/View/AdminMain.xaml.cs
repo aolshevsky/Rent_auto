@@ -51,15 +51,18 @@ namespace OOP.View
 					break;
 				case 2:
 					GridPrincipal.Children.Clear();
+					break;
+				case 3:
+					GridPrincipal.Children.Clear();
 					NewCustomer nc = new NewCustomer(appviemodel);
 					nc.ShowDialog();
 					break;
-				case 3:
+				case 4:
 					GridPrincipal.Children.Clear();
 					NewCar ac = new NewCar(appviemodel);
 					ac.ShowDialog();
 					break;
-				case 4:
+				case 5:
 					GridPrincipal.Children.Clear();
 					NewReservation nr = new NewReservation(appviemodel);
 					nr.ShowDialog();

@@ -1,4 +1,5 @@
 ﻿using OOP.ViewModel;
+using OOP.ViewModel.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace OOP.View
 			InitializeComponent();
 			DataContext = app;
 			appviemodel = app;
+			cbPickupLoc.ItemsSource = Enum.GetValues(typeof(Location)).Cast<Location>();
+			cbReturnLoc.ItemsSource = Enum.GetValues(typeof(Location)).Cast<Location>();
 		}
 		private void btCancel_Click(object sender, RoutedEventArgs e)
 		{
@@ -44,6 +47,20 @@ namespace OOP.View
 			nc.Show();
 		}
 		private void btCalculate_Click(object sender, RoutedEventArgs e)
-		{ }
+		{
+			if (!appviemodel.BillAct.NewBill.Rent.CheckDate())
+			{
+				MessageBox.Show("Enter correct date!");
+				return;
+			}
+			if (appviemodel.BillAct.NewBill.Rent.IsEmptyFields())
+			{
+				MessageBox.Show("Enter empty fields!");
+				return;
+			}
+			appviemodel.BillAct.NewBill.Rent.PickupLoc = (Location)cbPickupLoc.SelectedItem;
+			appviemodel.BillAct.NewBill.Rent.ReturnLoc = (Location)cbReturnLoc.SelectedItem;
+			appviemodel.BillAct.AddReservation();
+		}
 	}
 }

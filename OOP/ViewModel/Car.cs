@@ -22,6 +22,7 @@ namespace OOP.ViewModel
 		private bool airConditin;
 		private double? fuelConsumtionPerHundredKm;
 		private string imageName;
+		public static int ID = 0;
 		private CarBrands brand;
 		private TransmissionType transmType;
 		private EngineType engineType;
@@ -45,6 +46,7 @@ namespace OOP.ViewModel
 
 		public Car()
 		{
+			SetId();
 		}
 
 
@@ -162,7 +164,7 @@ namespace OOP.ViewModel
 
 
 		#endregion
-
+		public int CarId { get; set; }
 		public bool IsEmptyFields()
 		{
 			if (Model == "" || Year == null || FuelConsumtionPerHundredKm == null ||
@@ -197,7 +199,8 @@ namespace OOP.ViewModel
 
 			return toString.ToString();
 		}
-
+		public void SetId() => CarId = ID++;
+		public string FullName => Brand.ToString() + " " + Model; 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
