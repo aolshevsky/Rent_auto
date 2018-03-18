@@ -62,7 +62,7 @@ namespace OOP.ViewModel
 				}
 				else if (File.Exists(directory + "//" + imageName + ".png"))
 				{
-					return directory + "//" + imageName + ".jpg";
+					return directory + "//" + imageName + ".png";
 				}
 				else
 				{

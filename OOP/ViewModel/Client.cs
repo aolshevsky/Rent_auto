@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
-	public class Client : INotifyPropertyChanged
+	public class Client : Person, INotifyPropertyChanged
 	{
 		#region fields
 		private string firstName;
@@ -19,8 +19,6 @@ namespace OOP.ViewModel
 		private Sex sex;
 		private string city;
 		private string country;
-		private string username;
-		private string password;
 		private string phoneNumber;
 		public static int ID = 0;
 
@@ -81,24 +79,6 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
-		public string Username
-		{
-			get => username;
-			set
-			{
-				username = value;
-				OnPropertyChanged();
-			}
-		}
-		public string Password
-		{
-			get => password;
-			set
-			{
-				password = value;
-				OnPropertyChanged();
-			}
-		}
 		public string PhoneNumber
 		{
 			get => phoneNumber;
@@ -137,12 +117,5 @@ namespace OOP.ViewModel
 			this.LastName = lastName;
 		}
 		public void SetId() => ClientId = ID++;
-
-		public event PropertyChangedEventHandler PropertyChanged;
-		public void OnPropertyChanged([CallerMemberName]string prop = "")
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(prop));
-		}
 	}
 }

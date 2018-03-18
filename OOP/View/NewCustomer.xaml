@@ -24,7 +24,7 @@
         <RadioButton x:Name="rbFemale" Content="Female" HorizontalAlignment="Left" Margin="177,264,0,0" VerticalAlignment="Top"/>
         <materialDesign:PackIcon Kind="GenderMale" Height="20" Width="20" Margin="132,262,0,0" RenderTransformOrigin="0.125,0.438"></materialDesign:PackIcon>
         <materialDesign:PackIcon Kind="GenderFemale" Height="20" Width="20" Margin="245,262,0,0" RenderTransformOrigin="1.25,0.6"></materialDesign:PackIcon>
-        <TextBox Text="{Binding ClientAct.NewClient.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="   Username" HorizontalAlignment="Left" Height="23" Margin="429,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
+        <TextBox Text="{Binding ClientAct.NewClient.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="   Username" HorizontalAlignment="Left" Height="23" Margin="429,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
         <PasswordBox x:Name="txtPass" materialDesign:HintAssist.Hint="   Password" HorizontalAlignment="Left" Height="23" Margin="429,258,0,0"  VerticalAlignment="Top" Width="161" RenderTransformOrigin="0.497,2.061"/>
         <Button x:Name="btAdd" Click="btAdd_Click" Content="ADD" HorizontalAlignment="Left" Margin="233,385,0,0" VerticalAlignment="Top" Width="100"/>
         <Button x:Name="btDelete" Click="btDelete_Click" Content="Cancel" Background="Crimson" HorizontalAlignment="Left" Margin="366,385,0,0" VerticalAlignment="Top" Width="100"/>

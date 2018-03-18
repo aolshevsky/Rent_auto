@@ -47,6 +47,7 @@
       <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -72,6 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\HotKey.cs" />
     <Compile Include="Model\RelayCommand.cs" />
     <Compile Include="ViewModel\AdminAuthorization.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="ViewModel\Enumerations\Sex.cs" />
     <Compile Include="ViewModel\Enumerations\TransmissionType.cs" />
     <Compile Include="ViewModel\BillAction.cs" />
+    <Compile Include="ViewModel\Person.cs" />
     <Compile Include="ViewModel\Reservation.cs" />
     <Compile Include="View\AdminMain.xaml.cs">
       <DependentUpon>AdminMain.xaml</DependentUpon>
@@ -102,6 +105,9 @@
     </Compile>
     <Compile Include="View\NewReservation.xaml.cs">
       <DependentUpon>NewReservation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControlCar.xaml.cs">
       <DependentUpon>UserControlCar.xaml</DependentUpon>
@@ -135,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NewReservation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,7 +183,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\audi.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\porsche.png" />
     <Resource Include="Assets\porsche1.png" />
@@ -187,6 +199,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\main_car.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\bmw1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

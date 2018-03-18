@@ -47,16 +47,7 @@ namespace OOP.ViewModel
 			}
 		}
 
-		public string opa;
-		public string Opa
-		{
-			get => opa;
-			set
-			{
-				opa = value;
-				OnPropertyChanged();
-			}
-		}
+		
 
 		private RelayCommand adminLoginCommand;
 

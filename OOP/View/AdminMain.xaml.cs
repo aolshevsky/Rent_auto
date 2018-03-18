@@ -47,7 +47,8 @@ namespace OOP.View
 					break;
 				case 1:
 					GridPrincipal.Children.Clear();
-					GridPrincipal.Children.Add(new UserControlCar());
+					appviemodel.CarAct.RefreshPages();
+					GridPrincipal.Children.Add(new UserControl1());
 					break;
 				case 2:
 					GridPrincipal.Children.Clear();

@@ -32,8 +32,29 @@
         </StackPanel>
 
         <Grid Margin="250 55 0 0">
-            <Image Source="D:\Облако-_-\OneDrive\Лабораторные\OOP\OOP\OOP\Assets/main_car.jpg" Stretch="UniformToFill" Grid.ColumnSpan="2" Margin="0,0,-2.6,0" />
+            <Image Source="D:\Облако-_-\OneDrive\Лабораторные\OOP\OOP\OOP\Assets/main_car.jpg" Stretch="UniformToFill" Grid.ColumnSpan="2" Margin="0,0,-3,0" />
+            <StackPanel Grid.ColumnSpan="2" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Command="{Binding CarAct.FirstPageCommand}" Margin="0 10">
+                    <materialDesign:PackIcon Kind="ArrowCollapseLeft" Width="20" Height="20"/>
+                </Button>
+                <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Command="{Binding CarAct.PrevPageCommand}" Margin="10 10">
+                    <materialDesign:PackIcon Kind="ArrowLeft" Width="20" Height="20"/>
+                </Button>
+
+                <TextBlock Text="Page:" FontSize="12" FontWeight="Black" Foreground="#dfe6e9" Margin="5 15" ></TextBlock>
+                <TextBlock Text="{Binding CarAct.CurrentPageValueBind}" FontSize="12" FontWeight="Black" Foreground="#dfe6e9" Margin="0 15" ></TextBlock>
+                <TextBlock Text="of" FontSize="12" FontWeight="Black" Foreground="#dfe6e9"  Margin="10 15" ></TextBlock>
+                <TextBlock Text="{Binding CarAct.AmountOfPagesBind, UpdateSourceTrigger=PropertyChanged}" FontSize="12" FontWeight="Black" Foreground="#dfe6e9" Margin="0 15" ></TextBlock>
+                <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0"  Command="{Binding CarAct.NextPageCommand}" Margin="10 0">
+                    <materialDesign:PackIcon Kind="ArrowRight" Width="20" Height="20"/>
+                </Button>
+                <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0"  Command="{Binding CarAct.LastPageCommand}" Margin="10 10">
+                    <materialDesign:PackIcon Kind="ArrowCollapseRight" Width="20" Height="20"/>
+                </Button>
+            </StackPanel>
             <Grid x:Name="GridPrincipal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
         </Grid>
         <Grid Width="250" HorizontalAlignment="Left" Background="#303952">
             <TextBlock Foreground="Gray" Width="200" Margin="25,20,25,385" TextAlignment="Justify" FontSize="50" >USER</TextBlock>
