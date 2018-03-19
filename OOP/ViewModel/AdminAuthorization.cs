@@ -18,17 +18,14 @@ namespace OOP.ViewModel
 			Password = "";
 		}
 
-		
-
 		public bool CheckLogPass()
 		{
-			if (Password == "" && UserName == "")
+			if (Password == "admin" && UserName == "admin")
 			{
 				return true;
 			}
 			return false;
 		}
-
 		public bool IsEmpty()
 		{
 			if (Password == "" || UserName == "")

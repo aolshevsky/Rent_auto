@@ -18,7 +18,35 @@ namespace OOP.ViewModel
 		private CarAction carAct = new CarAction();
 		private ClientAction clientAct = new ClientAction();
 		private BillAction billAct = new BillAction();
+		public static bool IsAdmin { get; set; }
+		private string user;
+		private string pass;
 
+
+		public string User
+		{
+			get => user;
+			set
+			{
+				user = value;
+				OnPropertyChanged();
+			}
+		}
+		public string Pass
+		{
+			get => pass;
+			set
+			{
+				pass = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public AppViewModel()
+		{
+			IsAdmin = false;
+			carAct.AppVM = this;
+		}
 		public BillAction BillAct
 		{
 			get => billAct;
@@ -47,7 +75,24 @@ namespace OOP.ViewModel
 			}
 		}
 
-		
+		public bool Validate()
+		{
+			adminLogin.UserName = User;
+			adminLogin.Password = Pass;
+			if (adminLogin.CheckLogPass())
+			{
+				IsAdmin = true;
+				return true;
+			}
+			foreach(Client cl in ClientAct.Сlients)
+			{
+				if(cl.UserName == User && cl.Password == Pass)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 
 		private RelayCommand adminLoginCommand;
 

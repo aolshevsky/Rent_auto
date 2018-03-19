@@ -10,10 +10,17 @@ namespace OOP.ViewModel
 {
 	public class Bill : INotifyPropertyChanged
 	{
-		public Bill() { }
+		public Bill()
+		{
+			SetId();
+		}
 
 		private double? cost;
 		private Reservation rent = new Reservation();
+		public static int id_static = -1;
+		private int id;
+		private bool isSelected = false;
+
 
 		public Reservation Rent
 		{
@@ -35,6 +42,27 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		public int ID
+		{
+			get => id;
+			set
+			{
+				id = value;
+				OnPropertyChanged();
+			}
+		}
+		public bool IsSelected
+		{
+			get => isSelected;
+			set
+			{
+				isSelected = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public void SetId() => id = id_static++;
+
 		public void CalculateTotalCost()
 		{
 			DateTime startDate = Rent.PickupDate;

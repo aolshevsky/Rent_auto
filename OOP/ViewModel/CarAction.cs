@@ -1,4 +1,5 @@
 ﻿using OOP.Model;
+using OOP.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +25,8 @@ namespace OOP.ViewModel
 
 		private RelayCommand nextPageCommand;
 		private RelayCommand prevPageCommand;
+		private RelayCommand firstPageCommand;
+		private RelayCommand lastPageCommand;
 
 		public static ObservableCollection<Car> cars = new ObservableCollection<Car>();
 		private Car newCar = new Car();
@@ -32,6 +35,8 @@ namespace OOP.ViewModel
 		private ObservableCollection<Car> currentPage;
 		private ObservableCollection<Car> nextPage;
 		private ObservableCollection<Car> prevPage;
+
+		public AppViewModel AppVM { get; set; }
 
 
 		public CarAction()
@@ -148,7 +153,7 @@ namespace OOP.ViewModel
 			AmountOfPages = 0;
 			CurrentPageValue = 0;
 			CurrentPage = new ObservableCollection<Car>(cars.Skip((currentPageValue) * rowInPage).Take(rowInPage).ToArray());
-			if(CurrentPage.Count != 0)
+			if (CurrentPage.Count != 0)
 			{
 				SelectedCar = CurrentPage.First();
 			}
@@ -159,17 +164,17 @@ namespace OOP.ViewModel
 		public void AddCar()
 		{
 			cars.Add(NewCar);
-
 		}
 
 		public void DeleteCar()
 		{
-
+			cars.Remove(SelectedCar);
+			RefreshPages();
 		}
 
 		public void EditCar()
 		{
-
+			NewCar = SelectedCar;
 		}
 		public void HotKeys()
 		{
@@ -231,6 +236,32 @@ namespace OOP.ViewModel
 					  LoadPrevPage();
 					  LoadNextPage();
 				  }));
+		public RelayCommand FirstPageCommand => firstPageCommand ??
+			(firstPageCommand = new RelayCommand(obj =>
+				{
+					CurrentPageValue = 0;
+
+					CurrentPage = new ObservableCollection<Car>(cars.Take(rowInPage).ToArray());
+					SelectedCar = currentPage.First();
+
+					LoadNextPage();
+					LoadPrevPage();
+
+				}));
+
+		public RelayCommand LastPageCommand => lastPageCommand ??
+			(lastPageCommand = new RelayCommand(obj =>
+				{
+					CurrentPageValue = AmountOfPages - 1;
+
+					CurrentPage = new ObservableCollection<Car>(
+						cars.Skip((currentPageValue + 1) * rowInPage).Take(rowInPage).ToArray());
+					SelectedCar = currentPage.First();
+					CurrentPageValue++;
+					LoadNextPage();
+					LoadPrevPage();
+				}));
+
 
 
 		public event PropertyChangedEventHandler PropertyChanged;

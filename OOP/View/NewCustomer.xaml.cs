@@ -28,6 +28,8 @@ namespace OOP.View
 			InitializeComponent();
 			DataContext = app;
 			appviemodel = app;
+			appviemodel.ClientAct.NewClient = null;
+			appviemodel.ClientAct.NewClient = new Client();
 		}
 
 		private void btDelete_Click(object sender, RoutedEventArgs e)

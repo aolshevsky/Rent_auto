@@ -1,6 +1,7 @@
 ﻿using OOP.ViewModel.Enumerations;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,6 +21,7 @@ namespace OOP.ViewModel
 		private string city;
 		private string country;
 		private string phoneNumber;
+		private ObservableCollection<Car> takenCars = new ObservableCollection<Car>();
 		public static int ID = 0;
 
 		#endregion
@@ -27,6 +29,15 @@ namespace OOP.ViewModel
 
 
 		#region properties
+		public ObservableCollection<Car> TakenCars
+		{
+			get => takenCars;
+			set
+			{
+				takenCars = value;
+				OnPropertyChanged();
+			}
+		}
 		public int ClientId { get; set; }
 		public Sex Sex
 		{

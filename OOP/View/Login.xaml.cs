@@ -31,6 +31,13 @@ namespace OOP.View
 			this.Close();
 
 		}
+
+		private void btForgot_Click(object sender, RoutedEventArgs e)
+		{
+
+			this.Close();
+
+		}
 		private void btLogin_Click(object sender, RoutedEventArgs e)
 		{
 			appviemodel.adminLogin.Password = txtPassword.Password.ToString();

@@ -1,5 +1,4 @@
-﻿using OOP.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,22 +16,13 @@ using System.Windows.Shapes;
 namespace OOP.View
 {
 	/// <summary>
-	/// Interaction logic for UserControl1.xaml
+	/// Interaction logic for UseControlReservation.xaml
 	/// </summary>
-	public partial class UserControl1 : UserControl
+	public partial class UseControlReservation : UserControl
 	{
-		AppViewModel appviemodel;
-		public UserControl1(AppViewModel app)
+		public UseControlReservation()
 		{
 			InitializeComponent();
-			DataContext = app;
-			appviemodel = app;
-		}
-
-		private void Button_Click(object sender, RoutedEventArgs e)
-		{
-			ShowCar sc = new ShowCar(appviemodel);
-			sc.ShowDialog();
 		}
 	}
 }

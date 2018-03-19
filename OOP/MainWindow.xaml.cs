@@ -18,23 +18,32 @@ namespace OOP
 			DataContext = appviemodel;
 		}
 
-		private void btUser_Click(object sender, RoutedEventArgs e)
+		private void btCancel_Click(object sender, RoutedEventArgs e)
 		{
-
-		}
-
-		private void btAdmin_Click(object sender, RoutedEventArgs e)
-		{
-			
-			Login log = new Login(appviemodel);
-			log.Show();
 			this.Close();
 
 		}
 
-		private void ButtonFechar_Click(object sender, RoutedEventArgs e)
+		private void btForgot_Click(object sender, RoutedEventArgs e)
 		{
-			Close();
+			NewCustomer nc = new NewCustomer(appviemodel);
+			nc.ShowDialog();
+
+		}
+		private void btLogin_Click(object sender, RoutedEventArgs e)
+		{
+			appviemodel.Pass = txtPassword.Password.ToString();
+			if (!appviemodel.Validate())
+			{
+				MessageBox.Show("Invalid data! Repeat one more time!");
+			}
+
+			else
+			{
+				AdminMain adminMain = new AdminMain(appviemodel);
+				adminMain.Show();
+				Close();
+			}
 		}
 	}
 }

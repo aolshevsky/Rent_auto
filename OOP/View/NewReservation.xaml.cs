@@ -22,13 +22,16 @@ namespace OOP.View
 	public partial class NewReservation : Window
 	{
 		AppViewModel appviemodel;
-		public NewReservation(AppViewModel app)
+		public NewReservation(AppViewModel app, Car choose=null)
 		{
 			InitializeComponent();
 			DataContext = app;
 			appviemodel = app;
 			cbPickupLoc.ItemsSource = Enum.GetValues(typeof(Location)).Cast<Location>();
 			cbReturnLoc.ItemsSource = Enum.GetValues(typeof(Location)).Cast<Location>();
+			appviemodel.BillAct.NewBill = null;
+			appviemodel.BillAct.NewBill = new Bill();
+			appviemodel.BillAct.NewBill.Rent.Car = choose;
 		}
 		private void btCancel_Click(object sender, RoutedEventArgs e)
 		{
@@ -43,7 +46,7 @@ namespace OOP.View
 		}
 		private void btAddNewCar_Click(object sender, RoutedEventArgs e)
 		{
-			NewCar nc = new NewCar(appviemodel);
+			NewCar nc = new NewCar(appviemodel, true);
 			nc.Show();
 		}
 		private void btCalculate_Click(object sender, RoutedEventArgs e)
@@ -61,6 +64,7 @@ namespace OOP.View
 			appviemodel.BillAct.NewBill.Rent.PickupLoc = (Location)cbPickupLoc.SelectedItem;
 			appviemodel.BillAct.NewBill.Rent.ReturnLoc = (Location)cbReturnLoc.SelectedItem;
 			appviemodel.BillAct.AddReservation();
+			this.Close();
 		}
 	}
 }

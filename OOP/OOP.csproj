@@ -106,6 +106,12 @@
     <Compile Include="View\NewReservation.xaml.cs">
       <DependentUpon>NewReservation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ShowCar.xaml.cs">
+      <DependentUpon>ShowCar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UseControlReservation.xaml.cs">
+      <DependentUpon>UseControlReservation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
@@ -141,6 +147,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NewReservation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ShowCar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UseControlReservation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +216,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\bmw1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\bmw2.jpg" />
+    <Resource Include="Assets\bmw4.jpg" />
+    <Resource Include="Assets\bmw5.jpg" />
+    <Resource Include="Assets\check.jpg" />
+    <Resource Include="Assets\main_add_car.jpg" />
+    <Resource Include="Assets\main_add_car1.jpg" />
+    <Resource Include="Assets\main_add_car2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\porsche3.jpg" />
+    <Resource Include="Assets\porsche4.jpg" />
+    <Resource Include="Assets\porsche5.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

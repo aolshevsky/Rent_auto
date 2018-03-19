@@ -22,7 +22,8 @@ namespace OOP.ViewModel
 		private bool airConditin;
 		private double? fuelConsumtionPerHundredKm;
 		private string imageName;
-		public static int ID = 0;
+		public static int id_static = -2;
+		private int id;
 		private CarBrands brand;
 		private TransmissionType transmType;
 		private EngineType engineType;
@@ -51,6 +52,15 @@ namespace OOP.ViewModel
 
 
 		#region properties
+		public int ID
+		{
+			get => id;
+			set
+			{
+				id = value;
+				OnPropertyChanged();
+			}
+		}
 		public string ImagePath
 		{
 			get
@@ -102,11 +112,8 @@ namespace OOP.ViewModel
 			get => numberOfSeats;
 			set
 			{
-				if (value < 1)
-				{
-					//throw new ArgumentOutOfRangeException("Number of seats in the vehicle must be at least 1.");
-				}
 				numberOfSeats = value;
+				OnPropertyChanged();
 			}
 		}
 		public double? Price
@@ -114,10 +121,6 @@ namespace OOP.ViewModel
 			get => price;
 			set
 			{
-				if (value < 0)
-				{
-					//throw new ArgumentOutOfRangeException("Price of the car must be a positive number to 0.");
-				}
 				price = value;
 				OnPropertyChanged();
 			}
@@ -144,27 +147,44 @@ namespace OOP.ViewModel
 		public CarBrands Brand
 		{
 			get => brand;
-			set => brand = value;
+			set
+			{
+				brand = value;
+				OnPropertyChanged();
+			}
 		}
 		public TransmissionType TransmType
 		{
 			get => transmType;
-			set => transmType = value;
+			set
+			{
+				transmType = value;
+				OnPropertyChanged();
+			}
 		}
 		public EngineType EngineType
 		{
 			get => engineType;
-			set => engineType = value;
+			set
+			{
+				engineType = value;
+				OnPropertyChanged();
+			}
 		}
 		public CarType Type
 		{
 			get => type;
-			set => type = value;
+			set
+			{
+				type = value;
+				OnPropertyChanged();
+			}
 		}
+		public string BrandAndModel => Brand + " " + Model; 
 
 
 		#endregion
-		public int CarId { get; set; }
+
 		public bool IsEmptyFields()
 		{
 			if (Model == "" || Year == null || FuelConsumtionPerHundredKm == null ||
@@ -174,7 +194,6 @@ namespace OOP.ViewModel
 			}
 			return false;
 		}
-
 		public override string ToString()
 		{
 			StringBuilder toString = new StringBuilder();
@@ -199,7 +218,7 @@ namespace OOP.ViewModel
 
 			return toString.ToString();
 		}
-		public void SetId() => CarId = ID++;
+		public void SetId() => id = id_static++;
 		public string FullName => Brand.ToString() + " " + Model; 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")

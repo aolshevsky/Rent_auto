@@ -18,7 +18,7 @@
         <ComboBox x:Name="cbPickupLoc" materialDesign:HintAssist.Hint="  Location" HorizontalAlignment="Left" Margin="45,205,0,0" VerticalAlignment="Top" Width="142"/>
         <DatePicker Text="{Binding BillAct.NewBill.Rent.PickupDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="   Date" HorizontalAlignment="Left" Margin="45,147,0,0" VerticalAlignment="Top" Width="142" RenderTransformOrigin="0.511,1.5"/>
         <ComboBox x:Name="cbReturnLoc" materialDesign:HintAssist.Hint="   Location" HorizontalAlignment="Left" Margin="260,205,0,0" VerticalAlignment="Top" Width="142"/>
-        <DatePicker Text="{Binding BillAct.NewBill.Rent.PickupDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="  Date" HorizontalAlignment="Left" Margin="260,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.524,-4.88" Width="142"/>
+        <DatePicker Text="{Binding BillAct.NewBill.Rent.ReturnDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="  Date" HorizontalAlignment="Left" Margin="260,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.524,-4.88" Width="142"/>
         <Border BorderBrush="#95a5a6" BorderThickness="1" HorizontalAlignment="Left" Height="80" Margin="450,94,0,0" VerticalAlignment="Top" Width="310">
             <TextBlock Text="Client" Foreground="#95a5a6" FontStyle="Italic" Margin="0,0,87,0" />
         </Border>
@@ -39,10 +39,43 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        <DataGrid IsReadOnly="True" Background="White"  ItemsSource="{Binding Path=BillAct.NewBill.Rent.Cars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Margin="153,294,0,0" VerticalAlignment="Top" Width="607" Height="105">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding ID}"
+                                        Header="ID"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                <DataGridTextColumn Binding="{Binding Brand}"
+                                        Header="Brand"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Model}"
+                                                               Header="Model"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Price}"
+                                                               Header="Price $"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Type}"
+                                                               Header="Type"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                <DataGridCheckBoxColumn Binding="{Binding AirConditin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
+                                            Header="Air"/>
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding NumberOfSeats}"
+                                                               Header="Seats"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding TransmType}"
+                                                               Header="GearBox"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding EngineType}"
+                                                               Header="Engine"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Border BorderBrush="#95a5a6" BorderThickness="1" HorizontalAlignment="Left" Height="120" Margin="20,289,0,0" VerticalAlignment="Top" Width="740">
             <TextBlock Text="Car" Foreground="#95a5a6" FontStyle="Italic" Margin="0,0,0,103" HorizontalAlignment="Left" Width="43" />
         </Border>
-        <Button x:Name="btAddNewEmp_Copy" Content="Add new" HorizontalAlignment="Left" Margin="45,367,0,0" VerticalAlignment="Top" Width="90" Click="btAddNewCar_Click"/>
+        <Button Content="Add new" HorizontalAlignment="Left" Margin="45,367,0,0" VerticalAlignment="Top" Width="90" Click="btAddNewCar_Click"/>
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="95" Margin="20,424,0,0" VerticalAlignment="Top" Width="369" BorderBrush="#95a5a6">
             <TextBlock Text="Extras" Foreground="#95a5a6" FontStyle="Italic" Margin="0,0,-1,-1" />
         </Border>

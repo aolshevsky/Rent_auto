@@ -7,7 +7,8 @@
         mc:Ignorable="d" Height="480" Width="720" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
 
     <Grid>
-        <TextBlock Margin="0,19,0,0" TextAlignment="Center" TextWrapping="Wrap" Height="64" FontSize="45" FontFamily="Franklin Gothic" Text="  ADD NEW CAR" Foreground="#95a5a6" VerticalAlignment="Top"/>
+        <!--Image Source="D:\Облако-_-\OneDrive\Лабораторные\OOP_git\road_to_the_dream\OOP\Assets/main_add_car1.jpg" Stretch="UniformToFill" /-->
+        <TextBlock x:Name="tbMain" Margin="0,19,0,0" TextAlignment="Center" TextWrapping="Wrap" Height="64" FontSize="45" FontFamily="Franklin Gothic" Text="  ADD NEW CAR" Foreground="#95a5a6" VerticalAlignment="Top"/>
         <Border  HorizontalAlignment="Left" Height="254" Margin="10,88,0,0" VerticalAlignment="Top" Width="671">
             <ComboBox x:Name="cbBrande" materialDesign:HintAssist.Hint="   Brande" Margin="65,56,442,168"/>
         </Border>
@@ -24,6 +25,7 @@
         <TextBox Text="{Binding Path=CarAct.NewCar.Year, UpdateSourceTrigger=PropertyChanged}" x:Name="txtYear" materialDesign:HintAssist.Hint="   Year" HorizontalAlignment="Left" Height="25" Margin="522,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <Button x:Name="btAdd" Click="btAdd_Click" Content="ADD" HorizontalAlignment="Left" Margin="191,373,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.37,0.438"/>
         <Button x:Name="btCancel" Click="btCancel_Click" Content="Cancel" Background="Crimson" HorizontalAlignment="Left" Margin="376,373,0,0" VerticalAlignment="Top" Width="100"/>
+        <ComboBox x:Name="cbEnergy" materialDesign:HintAssist.Hint="   Car Energy" HorizontalAlignment="Left" Margin="78,327,0,0" VerticalAlignment="Top" Width="162"/>
 
     </Grid>
 </Window>

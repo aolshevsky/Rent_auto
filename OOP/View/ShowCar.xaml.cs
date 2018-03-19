@@ -11,28 +11,33 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace OOP.View
 {
 	/// <summary>
-	/// Interaction logic for UserControl1.xaml
+	/// Interaction logic for ShowCar.xaml
 	/// </summary>
-	public partial class UserControl1 : UserControl
+	public partial class ShowCar : Window
 	{
 		AppViewModel appviemodel;
-		public UserControl1(AppViewModel app)
+		public ShowCar(AppViewModel app)
 		{
 			InitializeComponent();
 			DataContext = app;
 			appviemodel = app;
 		}
+		
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void btCancel_Click(object sender, RoutedEventArgs e)
 		{
-			ShowCar sc = new ShowCar(appviemodel);
-			sc.ShowDialog();
+			this.Close();
+		}
+		private void btAdd_Click(object sender, RoutedEventArgs e)
+		{
+			NewReservation nr = new NewReservation(appviemodel, appviemodel.CarAct.SelectedCar);
+			nr.ShowDialog();
+			this.Close();
 		}
 	}
 }

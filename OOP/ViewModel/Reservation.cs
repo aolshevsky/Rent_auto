@@ -1,6 +1,7 @@
 ﻿using OOP.ViewModel.Enumerations;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,39 +12,57 @@ namespace OOP.ViewModel
 {
 	public class Reservation : INotifyPropertyChanged
 	{
-		public bool IsEmptyFields()
-		{
-			if (Car == null || Client == null)
-			{
-				return true;
-			}
-			return false;
-		}
-		public static int ID = 0;
+		
 		private string extras = "";
 		private Dictionary<string, bool> dict = new Dictionary<string, bool>();
 		private DateTime pickupDate;
 		private DateTime returnDate;
 		private Client client;
 		private Car car;
-
-
-		public int ReservationId { get; set; }
+		private Location pickupLoc;
+		private Location returnLoc;
 
 		public bool Paid { get; set; }
 		public bool Billed { get; set; }
 		public bool Returned { get; set; }
+		private ObservableCollection<Car> cars = new ObservableCollection<Car>();
 
-		
-		public Location PickupLoc { get; set; }
-		public Location ReturnLoc { get; set; }
-
+		public ObservableCollection<Car> Cars
+		{
+			get => cars;
+			set
+			{
+				cars = value;
+				OnPropertyChanged();
+			}
+		}
 		public Car Car
 		{
 			get => car;
 			set
 			{
 				car = value;
+				cars = new ObservableCollection<Car>();
+				Cars.Add(car);
+				OnPropertyChanged("Cars");
+				OnPropertyChanged();
+			}
+		}
+		public Location PickupLoc
+		{
+			get => pickupLoc;
+			set
+			{
+				pickupLoc = value;
+				OnPropertyChanged();
+			}
+		}
+		public Location ReturnLoc
+		{
+			get => returnLoc;
+			set
+			{
+				returnLoc = value;
 				OnPropertyChanged();
 			}
 		}
@@ -98,7 +117,6 @@ namespace OOP.ViewModel
 		public Reservation()
 		{
 			this.Returned = false;
-			SetIDs();
 			PickupDate = DateTime.Now;
 			ReturnDate = DateTime.Now;
 		}
@@ -147,9 +165,14 @@ namespace OOP.ViewModel
 			total = extras * 10 + price * days;
 			return total;
 		}
-		
-		public void SetIDs() => ReservationId = ID++;
-
+		public bool IsEmptyFields()
+		{
+			if (Car == null || Client == null)
+			{
+				return true;
+			}
+			return false;
+		}
 		
 
 		public event PropertyChangedEventHandler PropertyChanged;
