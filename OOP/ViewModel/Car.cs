@@ -7,9 +7,11 @@ using OOP.ViewModel.Enumerations;
 using System.IO;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace OOP.ViewModel
 {
+	[DataContract(IsReference = true)]
 	public class Car : INotifyPropertyChanged
 	{
 		#region fields
@@ -52,6 +54,7 @@ namespace OOP.ViewModel
 
 
 		#region properties
+		[DataMember]
 		public int ID
 		{
 			get => id;
@@ -61,6 +64,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+
 		public string ImagePath
 		{
 			get
@@ -80,6 +84,7 @@ namespace OOP.ViewModel
 				}
 			}
 		}
+		[DataMember]
 		public string ImageName
 		{
 			get => imageName;
@@ -89,6 +94,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public bool AirConditin
 		{
 			get => airConditin;
@@ -98,6 +104,8 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+
+		[DataMember]
 		public string Model
 		{
 			get => model;
@@ -107,6 +115,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public int NumberOfSeats
 		{
 			get => numberOfSeats;
@@ -116,6 +125,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public double? Price
 		{
 			get => price;
@@ -125,6 +135,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public double? FuelConsumtionPerHundredKm
 		{
 			get => fuelConsumtionPerHundredKm;
@@ -134,6 +145,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public int? Year
 		{
 			get => year;
@@ -144,6 +156,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public CarBrands Brand
 		{
 			get => brand;
@@ -153,6 +166,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public TransmissionType TransmType
 		{
 			get => transmType;
@@ -162,6 +176,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public EngineType EngineType
 		{
 			get => engineType;
@@ -171,6 +186,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public CarType Type
 		{
 			get => type;

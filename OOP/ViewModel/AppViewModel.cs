@@ -1,9 +1,11 @@
-﻿using OOP.Model;
+﻿using Newtonsoft.Json;
+using OOP.Model;
 using OOP.View;
 using OOP.ViewModel.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -18,9 +20,12 @@ namespace OOP.ViewModel
 		private CarAction carAct = new CarAction();
 		private ClientAction clientAct = new ClientAction();
 		private BillAction billAct = new BillAction();
-		public static bool IsAdmin { get; set; }
+		private Client currenUser = new Client();
+		public bool IsAdmin { get; set; }
 		private string user;
 		private string pass;
+		private IDialogService dialogService;
+
 
 
 		public string User
@@ -46,6 +51,7 @@ namespace OOP.ViewModel
 		{
 			IsAdmin = false;
 			carAct.AppVM = this;
+			this.dialogService = new DefaultDialogService();
 		}
 		public BillAction BillAct
 		{
@@ -74,6 +80,15 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		public Client CurrenUser
+		{
+			get => currenUser;
+			set
+			{
+				currenUser = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public bool Validate()
 		{
@@ -88,23 +103,46 @@ namespace OOP.ViewModel
 			{
 				if(cl.UserName == User && cl.Password == Pass)
 				{
+					currenUser = cl;
+					IsAdmin = false;
 					return true;
 				}
 			}
 			return false;
 		}
+		
 
-		private RelayCommand adminLoginCommand;
+		private RelayCommand saveCommand;
 
 		#region RelayCommand
-		public RelayCommand AdminLoginCommand
+		public RelayCommand SaveCommand
 		{
-			get => adminLoginCommand ?? (adminLoginCommand = new
+			get => saveCommand ?? (saveCommand = new
 				RelayCommand(obj =>
 				{
+					if (dialogService.SaveFileDialog() == true)
+					{
+						if (dialogService.Filter() == 1)
+						{
+							string json = "";
+
+							json = JsonConvert.SerializeObject(currenUser);
+
+							if (!File.Exists(dialogService.FilePath))
+							{
+								File.WriteAllText(dialogService.FilePath, json);
+							}
+							else
+							{
+								File.WriteAllText(dialogService.FilePath, json);
+							}
+
+						}
+					}
 
 				}));
 		}
+		
 		#endregion
 
 		public event PropertyChangedEventHandler PropertyChanged;

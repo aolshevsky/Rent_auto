@@ -5,11 +5,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
+	[DataContract(IsReference = true)]
 	public class Client : Person, INotifyPropertyChanged
 	{
 		#region fields
@@ -22,6 +24,8 @@ namespace OOP.ViewModel
 		private string country;
 		private string phoneNumber;
 		private ObservableCollection<Car> takenCars = new ObservableCollection<Car>();
+		private ObservableCollection<Bill> reservationHistory = new ObservableCollection<Bill>();
+		private ObservableCollection<Bill> currentReserv = new ObservableCollection<Bill>();
 		public static int ID = 0;
 
 		#endregion
@@ -29,6 +33,7 @@ namespace OOP.ViewModel
 
 
 		#region properties
+		[DataMember]
 		public ObservableCollection<Car> TakenCars
 		{
 			get => takenCars;
@@ -38,12 +43,34 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		//[DataMember]
+		public ObservableCollection<Bill> ReservationHistory
+		{
+			get => reservationHistory;
+			set
+			{
+				reservationHistory = value;
+				OnPropertyChanged();
+			}
+		}
+		//[DataMember]
+		public ObservableCollection<Bill> CurrentReserv
+		{
+			get => currentReserv;
+			set
+			{
+				currentReserv = value;
+				OnPropertyChanged();
+			}
+		}
 		public int ClientId { get; set; }
+		[DataMember]
 		public Sex Sex
 		{
 			get => sex;
 			set => sex = value;
 		}
+		[DataMember]
 		public DateTime DateOfBirth
 		{
 			get => dateOfBirth;
@@ -53,6 +80,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public string City
 		{
 			get => city;
@@ -62,6 +90,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public string Country
 		{
 			get => country;
@@ -71,6 +100,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public string FirstName
 		{
 			get => firstName;
@@ -81,6 +111,7 @@ namespace OOP.ViewModel
 
 			}
 		}
+		[DataMember]
 		public string LastName
 		{
 			get => lastName;
@@ -90,6 +121,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public string PhoneNumber
 		{
 			get => phoneNumber;
@@ -99,6 +131,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public int Age
 		{
 			get
@@ -107,7 +140,7 @@ namespace OOP.ViewModel
 
 				if (age.Days / 365 < 18)
 				{
-					throw new ArgumentOutOfRangeException("You must be 18 years or older to rent a car.");
+					//throw new ArgumentOutOfRangeException("You must be 18 years or older to rent a car.");
 				}
 				return age.Days / 365;
 			}
@@ -121,7 +154,10 @@ namespace OOP.ViewModel
 			DateOfBirth = DateTime.Now;
 			SetId();
 		}
-
+		public bool CanTake()
+		{
+			return CurrentReserv.Count == 0 ? true : false;
+		}
 		public Client(string firstName, string lastName)
 		{
 			this.FirstName = firstName;

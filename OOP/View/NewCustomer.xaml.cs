@@ -40,6 +40,11 @@ namespace OOP.View
 		{
 			appviemodel.ClientAct.NewClient.Sex = (Sex)(RadioButtonGender());
 			appviemodel.ClientAct.NewClient.Password = txtPass.Password.ToString();
+			if (appviemodel.ClientAct.CheckUserLog())
+			{
+				MessageBox.Show("This user is registered. Change user name!");
+				return;
+			}
 			/*if (appviemodel.ClientAct.NewClient.IsEmptyFields())
 			{
 				MessageBox.Show("Enter empty fields!");

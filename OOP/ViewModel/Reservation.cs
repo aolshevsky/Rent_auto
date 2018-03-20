@@ -5,11 +5,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
+	[DataContract(IsReference = true)]
 	public class Reservation : INotifyPropertyChanged
 	{
 		
@@ -36,6 +38,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public Car Car
 		{
 			get => car;
@@ -48,6 +51,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public Location PickupLoc
 		{
 			get => pickupLoc;
@@ -57,6 +61,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public Location ReturnLoc
 		{
 			get => returnLoc;
@@ -66,6 +71,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public Client Client
 		{
 			get => client;
@@ -75,7 +81,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
-
+		[DataMember]
 		public string Extras
 		{
 			get => extras;
@@ -94,6 +100,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public DateTime PickupDate
 		{
 			get => pickupDate;
@@ -103,6 +110,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public DateTime ReturnDate
 		{
 			get => returnDate;

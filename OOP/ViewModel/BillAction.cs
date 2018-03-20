@@ -59,17 +59,25 @@ namespace OOP.ViewModel
 			newBill.Rent.TransformExtras();
 			newBill.CalculateTotalCost();
 			newBill.Rent.Client.TakenCars.Add(newBill.Rent.Car);
+			newBill.Rent.Client.CurrentReserv.Add(newBill);
 			Bills.Add(newBill);
+
 
 		}
 
 		public void DeleteReservation()
 		{
-			ObservableCollection<Bill> iterBills = Bills;
-			foreach(Bill bill in iterBills)
+			ObservableCollection<Bill> iterBills = new ObservableCollection<Bill>();
+			foreach(Bill bl in Bills)
+			{
+				iterBills.Add(bl);
+			}
+			foreach (Bill bill in iterBills)
 			{
 				if (bill.IsSelected)
 				{
+					bill.Rent.Client.ReservationHistory.Add(bill);
+					bill.Rent.Client.CurrentReserv.Remove(bill);
 					paidBills.Add(bill);
 					Bills.Remove(bill);
 				}

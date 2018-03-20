@@ -19,18 +19,22 @@
         <DatePicker Text="{Binding BillAct.NewBill.Rent.PickupDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="   Date" HorizontalAlignment="Left" Margin="45,147,0,0" VerticalAlignment="Top" Width="142" RenderTransformOrigin="0.511,1.5"/>
         <ComboBox x:Name="cbReturnLoc" materialDesign:HintAssist.Hint="   Location" HorizontalAlignment="Left" Margin="260,205,0,0" VerticalAlignment="Top" Width="142"/>
         <DatePicker Text="{Binding BillAct.NewBill.Rent.ReturnDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="  Date" HorizontalAlignment="Left" Margin="260,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.524,-4.88" Width="142"/>
-        <Border BorderBrush="#95a5a6" BorderThickness="1" HorizontalAlignment="Left" Height="80" Margin="450,94,0,0" VerticalAlignment="Top" Width="310">
-            <TextBlock Text="Client" Foreground="#95a5a6" FontStyle="Italic" Margin="0,0,87,0" />
-        </Border>
+        <Grid x:Name="gdClient">
+            <Border BorderBrush="#95a5a6" BorderThickness="1" HorizontalAlignment="Left" Height="80" Margin="450,94,0,0" VerticalAlignment="Top" Width="310">
+                <TextBlock Text="Client" Foreground="#95a5a6" FontStyle="Italic" Margin="0,0,87,0" />
+            </Border>
+            <Button x:Name="btAddNewCus" Content="Add new" HorizontalAlignment="Left" Margin="654,116,0,0" VerticalAlignment="Top" Width="90" Click="btAddNewCus_Click"/>
+            <Button Content="Add new" HorizontalAlignment="Left" Margin="45,367,0,0" VerticalAlignment="Top" Width="90" Click="btAddNewCar_Click"/>
+            <ComboBox x:Name="cbCustomer" SelectedItem="{Binding  BillAct.NewBill.Rent.Client, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ClientAct.Сlients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="   Pick customer" HorizontalAlignment="Left" Margin="466,120,0,0" VerticalAlignment="Top" Width="170" RenderTransformOrigin="3.613,-7.304">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=FullName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
         <Button x:Name="btCancel" Click="btCancel_Click" Content="Cancel" Background="Crimson" HorizontalAlignment="Left" Margin="558,485,0,0" VerticalAlignment="Top" Width="106"/>
-        <ComboBox x:Name="cbCustomer" SelectedItem="{Binding  BillAct.NewBill.Rent.Client, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ClientAct.Сlients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="   Pick customer" HorizontalAlignment="Left" Margin="466,120,0,0" VerticalAlignment="Top" Width="170" RenderTransformOrigin="3.613,-7.304">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path=FullName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <Button x:Name="btAddNewCus" Content="Add new" HorizontalAlignment="Left" Margin="654,116,0,0" VerticalAlignment="Top" Width="90" Click="btAddNewCus_Click"/>
+
 
         <ComboBox x:Name="cbVehicle" SelectedItem="{Binding BillAct.NewBill.Rent.Car, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CarAct.Cars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="   Pick Car" HorizontalAlignment="Left" Margin="38,322,0,0" VerticalAlignment="Top" Width="110">
             <ComboBox.ItemTemplate>
@@ -75,7 +79,6 @@
         <Border BorderBrush="#95a5a6" BorderThickness="1" HorizontalAlignment="Left" Height="120" Margin="20,289,0,0" VerticalAlignment="Top" Width="740">
             <TextBlock Text="Car" Foreground="#95a5a6" FontStyle="Italic" Margin="0,0,0,103" HorizontalAlignment="Left" Width="43" />
         </Border>
-        <Button Content="Add new" HorizontalAlignment="Left" Margin="45,367,0,0" VerticalAlignment="Top" Width="90" Click="btAddNewCar_Click"/>
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="95" Margin="20,424,0,0" VerticalAlignment="Top" Width="369" BorderBrush="#95a5a6">
             <TextBlock Text="Extras" Foreground="#95a5a6" FontStyle="Italic" Margin="0,0,-1,-1" />
         </Border>

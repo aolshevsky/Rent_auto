@@ -3,8 +3,10 @@ using OOP.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
+	
 	public class CarAction : INotifyPropertyChanged
 	{
 		public string NextPageC { get; set; }
@@ -22,13 +25,14 @@ namespace OOP.ViewModel
 		private int currentPageValue;
 		private int maxPageValue;
 		private int rowInPage;
+		private string findText;
 
 		private RelayCommand nextPageCommand;
 		private RelayCommand prevPageCommand;
 		private RelayCommand firstPageCommand;
 		private RelayCommand lastPageCommand;
 
-		public static ObservableCollection<Car> cars = new ObservableCollection<Car>();
+		public static MyCollection<Car> cars = new MyCollection<Car>();
 		private Car newCar = new Car();
 		private Car selectedCar = new Car();
 		private ObservableCollection<Car> tempCars;
@@ -45,9 +49,25 @@ namespace OOP.ViewModel
 			currentPage = new ObservableCollection<Car>();
 			prevPage = new ObservableCollection<Car>();
 			nextPage = new ObservableCollection<Car>();
+			tempCars = new ObservableCollection<Car>();
 			HotKeys();
 			RefreshPages();
 		}
+
+		public string FindText
+		{
+			get => findText;
+			set
+			{
+				Default();
+				findText = value;
+				FindByName();
+				Cars.Refresh();
+				OnPropertyChanged();
+			}
+		}
+
+		
 
 		public Car NewCar
 		{
@@ -68,7 +88,7 @@ namespace OOP.ViewModel
 			}
 		}
 
-		public ObservableCollection<Car> Cars
+		public MyCollection<Car> Cars
 		{
 			get => cars;
 			set
@@ -104,7 +124,15 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
-
+		public ObservableCollection<Car> TempCars
+		{
+			get => tempCars;
+			set
+			{
+				tempCars = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public int CurrentPageValue
 		{
@@ -163,18 +191,30 @@ namespace OOP.ViewModel
 
 		public void AddCar()
 		{
+			tempCars.Add(NewCar);
 			cars.Add(NewCar);
 		}
 
 		public void DeleteCar()
 		{
 			cars.Remove(SelectedCar);
+			tempCars.Remove(SelectedCar);
 			RefreshPages();
 		}
 
 		public void EditCar()
 		{
 			NewCar = SelectedCar;
+		}
+		public void Default()
+		{
+			cars = new MyCollection<Car>();
+			foreach (Car cr in TempCars)
+			{
+				Cars.Add(cr);
+			}
+			SelectedCar = cars.First();
+			RefreshPages();
 		}
 		public void HotKeys()
 		{
@@ -214,6 +254,19 @@ namespace OOP.ViewModel
 			});
 			task.Wait();
 			task.Dispose();
+		}
+		public void FindByName()
+		{
+			IEnumerable<Car> sequenc = from cr in tempCars.AsParallel()
+									   where cr.FullName.ToLower().Contains(findText.ToLower())
+									   select cr;
+			cars = new MyCollection<Car>();
+			foreach (Car que in sequenc)
+			{
+				cars.Add(que);
+			}
+			if (cars.Count != 0)
+				SelectedCar = cars.First();
 		}
 		public RelayCommand NextPageCommand => nextPageCommand ??
 				  (nextPageCommand = new RelayCommand(obj =>
@@ -270,5 +323,6 @@ namespace OOP.ViewModel
 			if (PropertyChanged != null)
 				PropertyChanged(this, new PropertyChangedEventArgs(prop));
 		}
+		
 	}
 }

@@ -13,15 +13,15 @@
         <KeyBinding Command="{Binding CarAct.FirstPageCommand}" Key="{Binding CarAct.FirstPageC}"/>
         <KeyBinding Command="{Binding CarAct.LastPageCommand}" Key="{Binding CarAct.LastPageC}"/>
     </Window.InputBindings>
-    <Grid Background="#FFEEEEEE" MouseDown="Grid_MouseDown">
+    <Grid Background="White" MouseDown="Grid_MouseDown">
 
         <StackPanel VerticalAlignment="Top" Background="White">
             <Grid Background="#FF0069C0" Height="10"/>
             <Grid Margin="5">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
                     <StackPanel x:Name="stSearch" Margin="0 0 20 0" Orientation="Horizontal">
-                        <TextBox materialDesign:HintAssist.Hint="SEARCH" Foreground="#b2bec3" Width="600" FontSize="20"/>
-                        <Button Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="#b2bec3" VerticalAlignment="Center" Margin="0 0 60 0">
+                        <TextBox KeyUp="Grid_KeyUp" Text="{Binding Path=CarAct.FindText, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="SEARCH" Foreground="#b2bec3" Width="600" FontSize="20"/>
+                        <Button Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="#b2bec3" VerticalAlignment="Center" Margin="0 0 60 0" Click="Button_Click">
                             <materialDesign:PackIcon Kind="Magnify" />
                         </Button>
                     </StackPanel>
@@ -36,7 +36,7 @@
                             <materialDesign:PackIcon Kind="TicketConfirmation" Width="20" Height="20"/>
                         </Button>
                     </StackPanel>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="btLogout">
                         <materialDesign:PackIcon Kind="Logout"/>
                     </Button>
                     <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 10 0">
@@ -66,10 +66,138 @@
                                     <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
                                         <CheckBox HorizontalAlignment="Center"
                                          
-                                          IsChecked="{Binding BillAct.IsAllBillSelected,  RelativeSource={RelativeSource AncestorType=Window}}" />
+                                          IsChecked="{Binding ElementName=AdminMain , Path=DataContext.BillAct.IsAllBillSelected}" />
                                     </Border>
                                 </DataGridCheckBoxColumn.Header>
                             </DataGridCheckBoxColumn>
+                            <DataGridTextColumn Binding="{Binding ID}"
+                                        Header="ID"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                            <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.PickupDate.Date}"
+                                                               Header="Pick-up date"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <!-- set a max length to get an indicator in the editor -->
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.PickupLoc}"
+                                                               Header="LocationP"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.ReturnDate}"
+                                                        Header="Drop off date"
+                                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.ReturnLoc}"
+                                                               Header="LocationD"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.Car.BrandAndModel}"
+                                                               Header="Car"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Cost}"
+                                                               Header="Price $"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.Client.FullName}"
+                                                               Header="Customer"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer x:Name="svReservUser">
+                <StackPanel>
+                    <DataGrid Background="White" Margin="0" ItemsSource="{Binding Path=CurrenUser.CurrentReserv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
+                                <DataGridCheckBoxColumn.Header>
+
+                                    <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
+                                        <CheckBox HorizontalAlignment="Center"
+                                         
+                                          IsChecked="{Binding ElementName=AdminMain , Path=DataContext.BillAct.IsAllBillSelected}" />
+                                    </Border>
+                                </DataGridCheckBoxColumn.Header>
+                            </DataGridCheckBoxColumn>
+                            <DataGridTextColumn Binding="{Binding ID}"
+                                        Header="ID"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                            <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.PickupDate.Date}"
+                                                               Header="Pick-up date"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <!-- set a max length to get an indicator in the editor -->
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.PickupLoc}"
+                                                               Header="LocationP"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.ReturnDate}"
+                                                        Header="Drop off date"
+                                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.ReturnLoc}"
+                                                               Header="LocationD"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.Car.BrandAndModel}"
+                                                               Header="Car"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Cost}"
+                                                               Header="Price $"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.Client.FullName}"
+                                                               Header="Customer"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer x:Name="svHistory">
+                <StackPanel>
+                    <DataGrid Background="White" Margin="0" ItemsSource="{Binding Path=CurrenUser.ReservationHistory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ID}"
+                                        Header="ID"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                            <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.PickupDate}"
+                                                               Header="Pick-up date"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <!-- set a max length to get an indicator in the editor -->
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.PickupLoc}"
+                                                               Header="LocationP"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.ReturnDate}"
+                                                        Header="Drop off date"
+                                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.ReturnLoc}"
+                                                               Header="LocationD"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.Car.BrandAndModel}"
+                                                               Header="Car"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Cost}"
+                                                               Header="Price $"
+                                                               MaxLength="255" 
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer x:Name="svHistoryAdmin">
+                <StackPanel>
+                    <DataGrid  IsReadOnly="True" Background="White" Margin="0" ItemsSource="{Binding Path=BillAct.PaidBills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                        <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding ID}"
                                         Header="ID"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
@@ -139,7 +267,13 @@
 
         </Grid>
         <Grid Width="250" HorizontalAlignment="Left" Background="#303952">
-            <TextBlock Foreground="Gray" Width="200" Margin="25,20,25,385" TextAlignment="Justify" FontSize="50" >USER</TextBlock>
+            <Button Height="50" Width="100" Command="{Binding SaveCommand}" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal">
+                    <Image  Source="{Binding SaveBitmap}"  Margin="0 0 5 0" Height="25"></Image>
+                    <TextBlock  Text="Save"  TextElement.Foreground="WhiteSmoke" TextElement.FontSize="18" />
+                </StackPanel>
+            </Button>
+            <TextBlock x:Name="tbHi" Foreground="Gray" Text="ADMIN" Width="200" Margin="25,20,25,385" TextAlignment="Justify" FontSize="30" />
             <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}" RenderTransformOrigin="0.502,0.489">
                 <Grid x:Name="GridCursor" Margin="0 100 0 0" Background="#FF0069C0" Width="10" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top"/>
             </materialDesign:TransitioningContent>
@@ -165,10 +299,16 @@
                         <TextBlock Text="Reservations" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="40">
+                <ListViewItem x:Name="NewClient" Height="40">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="AccountStar" Width="20" Height="20" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="New client" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem x:Name="lvHistory" Height="40">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="History" Width="20" Height="20" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="History" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
             </ListView>

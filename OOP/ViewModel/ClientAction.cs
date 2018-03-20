@@ -39,15 +39,16 @@ namespace OOP.ViewModel
 			clients.Add(NewClient);
 
 		}
-
-		public void DeleteCar()
+		public bool CheckUserLog()
 		{
-
-		}
-
-		public void EditCar()
-		{
-
+			foreach (Client cl in Сlients)
+			{
+				if (cl.UserName == NewClient.UserName)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

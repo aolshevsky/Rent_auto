@@ -19,14 +19,28 @@ namespace OOP.View
 	{
 		AppViewModel appviemodel;
 
-		public AdminMain(ViewModel.AppViewModel app)
+		public AdminMain(AppViewModel app)
 		{
 			InitializeComponent();
 			DataContext = app;
 			appviemodel = app;
+			if (!appviemodel.IsAdmin)
+			{
+				NewClient.Visibility = Visibility.Collapsed;
+				tbHi.Text = "Hi! " + appviemodel.CurrenUser.FirstName;
+			}
+
 		}
+
+
 		private void ButtonFechar_Click(object sender, RoutedEventArgs e)
 		{
+			Close();
+		}
+		private void btLogout(object sender, RoutedEventArgs e)
+		{
+			MainWindow log = new MainWindow();
+			log.Show();
 			Close();
 		}
 
@@ -38,7 +52,7 @@ namespace OOP.View
 		private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			int index = ListViewMenu.SelectedIndex;
-			MoveCursorMenu(index);
+			MoveCursorMenu(ref index);
 
 			switch (index)
 			{
@@ -50,24 +64,36 @@ namespace OOP.View
 					svReserv.Visibility = Visibility.Collapsed;
 					stAddEditRemRes.Visibility = Visibility.Collapsed;
 					stSearch.Visibility = Visibility.Collapsed;
+					svHistory.Visibility = Visibility.Collapsed;
+					svReservUser.Visibility = Visibility.Collapsed;
+					svHistoryAdmin.Visibility = Visibility.Collapsed;
 					break;
 				case 1:
 					GridPrincipal.Children.Clear();
 					appviemodel.CarAct.RefreshPages();
 					GridPrincipal.Children.Add(new UserControl1(appviemodel));
 					stPages.Visibility = Visibility.Visible;
-					stAddEdit.Visibility = Visibility.Visible;
+					if (appviemodel.IsAdmin)
+						stAddEdit.Visibility = Visibility.Visible;
 					svReserv.Visibility = Visibility.Collapsed;
 					stAddEditRemRes.Visibility = Visibility.Collapsed;
 					stSearch.Visibility = Visibility.Visible;
+					svHistory.Visibility = Visibility.Collapsed;
+					svReservUser.Visibility = Visibility.Collapsed;
+					svHistoryAdmin.Visibility = Visibility.Collapsed;
 					break;
 				case 2:
 					GridPrincipal.Children.Clear();
 					stPages.Visibility = Visibility.Collapsed;
 					stAddEdit.Visibility = Visibility.Collapsed;
-					svReserv.Visibility = Visibility.Visible;
+					if (appviemodel.IsAdmin)
+						svReserv.Visibility = Visibility.Visible;
+					else
+						svReservUser.Visibility = Visibility.Visible;
 					stAddEditRemRes.Visibility = Visibility.Visible;
 					stSearch.Visibility = Visibility.Collapsed;
+					svHistory.Visibility = Visibility.Collapsed;
+					svHistoryAdmin.Visibility = Visibility.Collapsed;
 					break;
 				case 3:
 					GridPrincipal.Children.Clear();
@@ -76,16 +102,41 @@ namespace OOP.View
 					svReserv.Visibility = Visibility.Collapsed;
 					stAddEditRemRes.Visibility = Visibility.Collapsed;
 					stSearch.Visibility = Visibility.Collapsed;
-					NewCustomer nc = new NewCustomer(appviemodel);
-					nc.ShowDialog();
+					svReservUser.Visibility = Visibility.Collapsed;
+					svHistoryAdmin.Visibility = Visibility.Collapsed;
+					if (appviemodel.IsAdmin)
+					{
+						NewCustomer nc = new NewCustomer(appviemodel);
+						nc.ShowDialog();
+					}
+					else
+					{
+						svHistory.Visibility = Visibility.Visible;
+					}
 					break;
+				case 4:
+					GridPrincipal.Children.Clear();
+					stPages.Visibility = Visibility.Collapsed;
+					stAddEdit.Visibility = Visibility.Collapsed;
+					svReserv.Visibility = Visibility.Collapsed;
+					stAddEditRemRes.Visibility = Visibility.Collapsed;
+					stSearch.Visibility = Visibility.Collapsed;
+					svReservUser.Visibility = Visibility.Collapsed;
+					if (appviemodel.IsAdmin)
+					{
+						svHistoryAdmin.Visibility = Visibility.Visible;
+					}
+					break;
+
 				default:
 					break;
 			}
 		}
 
-		private void MoveCursorMenu(int index)
+		private void MoveCursorMenu(ref int index)
 		{
+			if (index == 4 && !appviemodel.IsAdmin)
+				index = 3;
 			TrainsitionigContentSlide.OnApplyTemplate();
 			GridCursor.Margin = new Thickness(0, (100 + (40 * index)), 0, 0);
 		}
@@ -107,8 +158,21 @@ namespace OOP.View
 			}
 			else
 			{
-				NewReservation nr = new NewReservation(appviemodel);
-				nr.ShowDialog();
+				if (!appviemodel.IsAdmin)
+				{
+					if (!appviemodel.CurrenUser.CanTake())
+					{
+						MessageBox.Show("You have unpaid rent, pay, before creating a new rent!");
+						return;
+					}
+					NewReservation nr = new NewReservation(appviemodel, null, appviemodel.CurrenUser);
+					nr.ShowDialog();
+				}
+				else
+				{
+					NewReservation nr = new NewReservation(appviemodel);
+					nr.ShowDialog();
+				}
 			}
 		}
 
@@ -128,5 +192,24 @@ namespace OOP.View
 			}
 
 		}
+		private void Grid_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				Button_Click(sender, e);
+			}
+		}
+		public void Button_Click(object sender, RoutedEventArgs e)
+		{
+			GridPrincipal.Children.Clear();
+			appviemodel.CarAct.RefreshPages();
+			GridPrincipal.Children.Add(new UserControl1(appviemodel));
+			stPages.Visibility = Visibility.Visible;
+			stAddEdit.Visibility = Visibility.Visible;
+			svReserv.Visibility = Visibility.Collapsed;
+			stAddEditRemRes.Visibility = Visibility.Collapsed;
+			stSearch.Visibility = Visibility.Visible;
+		}
+
 	}
 }

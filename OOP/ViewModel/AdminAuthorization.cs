@@ -20,7 +20,7 @@ namespace OOP.ViewModel
 
 		public bool CheckLogPass()
 		{
-			if (Password == "admin" && UserName == "admin")
+			if (Password == "a" && UserName == "a")
 			{
 				return true;
 			}
