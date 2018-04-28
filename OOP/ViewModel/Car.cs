@@ -8,6 +8,7 @@ using System.IO;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace OOP.ViewModel
 {
@@ -15,8 +16,6 @@ namespace OOP.ViewModel
 	public class Car : INotifyPropertyChanged
 	{
 		#region fields
-		private int numberInUse;
-		private int numberReserved;
 		private string model;
 		private int numberOfSeats;
 		private double? price;
@@ -24,7 +23,8 @@ namespace OOP.ViewModel
 		private bool airConditin;
 		private double? fuelConsumtionPerHundredKm;
 		private string imageName;
-		public static int id_static = -2;
+		[DataMember]
+		public static int id_static = 19;
 		private int id;
 		private CarBrands brand;
 		private TransmissionType transmType;
@@ -49,7 +49,7 @@ namespace OOP.ViewModel
 
 		public Car()
 		{
-			SetId();
+			
 		}
 
 
@@ -201,14 +201,23 @@ namespace OOP.ViewModel
 
 		#endregion
 
-		public bool IsEmptyFields()
+		public void IsEmptyFields()
 		{
+			Regex len = new Regex("^.{4,4}$");
 			if (Model == "" || Year == null || FuelConsumtionPerHundredKm == null ||
 				Price == null || ImageName == "" || numberOfSeats == 0)
 			{
-				return true;
+				throw new Exception("Enter empty fields!");
 			}
-			return false;
+			if (!Regex.IsMatch(Model, @"^[a-zA-Z]+$"))
+			{
+				throw new Exception("Check model!");
+			}
+			if (Year < 1950 && Year > DateTime.Now.Year)
+			{
+				throw new Exception("Check year!");
+			}
+			
 		}
 		public override string ToString()
 		{

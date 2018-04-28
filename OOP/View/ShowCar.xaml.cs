@@ -27,7 +27,7 @@ namespace OOP.View
 			DataContext = app;
 			appviemodel = app;
 		}
-		
+
 
 		private void btCancel_Click(object sender, RoutedEventArgs e)
 		{
@@ -35,8 +35,18 @@ namespace OOP.View
 		}
 		private void btAdd_Click(object sender, RoutedEventArgs e)
 		{
-			NewReservation nr = new NewReservation(appviemodel, appviemodel.CarAct.SelectedCar);
-			nr.ShowDialog();
+			appviemodel.BillAct.NewBill.Rent.Car = appviemodel.CarAct.SelectedCar;
+			if (appviemodel.IsAdmin)
+			{
+
+				NewReservation nr = new NewReservation(appviemodel, appviemodel.CarAct.SelectedCar);
+				nr.ShowDialog();
+			}
+			else
+			{
+				NewReservation nr = new NewReservation(appviemodel, appviemodel.CarAct.SelectedCar, appviemodel.CurrenUser);
+				nr.ShowDialog();
+			}
 			this.Close();
 		}
 	}

@@ -25,8 +25,9 @@ namespace OOP.ViewModel
 		private string user;
 		private string pass;
 		private IDialogService dialogService;
-
-
+		private string CarsFilePath;
+		private string ClientsFilePath;
+		private string BillsFilePath;
 
 		public string User
 		{
@@ -49,9 +50,14 @@ namespace OOP.ViewModel
 
 		public AppViewModel()
 		{
+			CarsFilePath = "D:\\Облако-_-\\OneDrive\\Лабораторные\\OOP_git\\road_to_the_dream\\OOP\\Assets\\Cars.json";
+			ClientsFilePath = "D:\\Облако-_-\\OneDrive\\Лабораторные\\OOP_git\\road_to_the_dream\\OOP\\Assets\\Clients.json";
+			BillsFilePath = "D:\\Облако-_-\\OneDrive\\Лабораторные\\OOP_git\\road_to_the_dream\\OOP\\Assets\\Bills.json";
 			IsAdmin = false;
 			carAct.AppVM = this;
 			this.dialogService = new DefaultDialogService();
+			OpenFiles();
+			carAct.RefreshPages();
 		}
 		public BillAction BillAct
 		{
@@ -99,9 +105,9 @@ namespace OOP.ViewModel
 				IsAdmin = true;
 				return true;
 			}
-			foreach(Client cl in ClientAct.Сlients)
+			foreach (Client cl in ClientAct.Сlients)
 			{
-				if(cl.UserName == User && cl.Password == Pass)
+				if (cl.UserName == User && cl.Password == Pass)
 				{
 					currenUser = cl;
 					IsAdmin = false;
@@ -110,39 +116,70 @@ namespace OOP.ViewModel
 			}
 			return false;
 		}
-		
-
-		private RelayCommand saveCommand;
 
 		#region RelayCommand
-		public RelayCommand SaveCommand
+
+		public void PrepCar()
 		{
-			get => saveCommand ?? (saveCommand = new
-				RelayCommand(obj =>
-				{
-					if (dialogService.SaveFileDialog() == true)
-					{
-						if (dialogService.Filter() == 1)
-						{
-							string json = "";
-
-							json = JsonConvert.SerializeObject(currenUser);
-
-							if (!File.Exists(dialogService.FilePath))
-							{
-								File.WriteAllText(dialogService.FilePath, json);
-							}
-							else
-							{
-								File.WriteAllText(dialogService.FilePath, json);
-							}
-
-						}
-					}
-
-				}));
+			if (dialogService.OpenFileDialog() && dialogService.Filter() == 1)
+			{
+				ClientsFilePath = dialogService.FilePath;
+			}
+			OpenFiles();
 		}
-		
+		public void SaveFile()
+		{
+			string json = "";
+
+			json = JsonConvert.SerializeObject(carAct);
+
+			if (!File.Exists(CarsFilePath))
+			{
+				File.WriteAllText(CarsFilePath, json);
+			}
+			else
+			{
+				File.WriteAllText(CarsFilePath, json);
+			}
+
+			json = JsonConvert.SerializeObject(clientAct);
+			File.Delete(ClientsFilePath);
+			File.WriteAllText(ClientsFilePath, json);
+
+
+			json = JsonConvert.SerializeObject(billAct);
+			if (!File.Exists(BillsFilePath))
+			{
+				File.WriteAllText(BillsFilePath, json);
+			}
+			else
+			{
+				File.WriteAllText(BillsFilePath, json);
+			}
+
+		}
+		public void OpenFiles()
+		{
+			string json = File.ReadAllText(CarsFilePath);
+			var crA = JsonConvert.DeserializeObject<CarAction>(json);
+			carAct = crA;
+			if (carAct == null)
+				carAct = new CarAction();
+			carAct.RefreshPages();
+
+			json = File.ReadAllText(ClientsFilePath);
+			var clA = JsonConvert.DeserializeObject<ClientAction>(json);
+			clientAct = clA;
+			if (clientAct == null)
+				clientAct = new ClientAction();
+
+			json = File.ReadAllText(BillsFilePath);
+			var bl = JsonConvert.DeserializeObject<BillAction>(json);
+			billAct = bl;
+			if (billAct == null)
+				billAct = new BillAction();
+		}
+
 		#endregion
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -150,6 +187,11 @@ namespace OOP.ViewModel
 		{
 			if (PropertyChanged != null)
 				PropertyChanged(this, new PropertyChangedEventArgs(prop));
+		}
+
+		~AppViewModel()
+		{
+			SaveFile();
 		}
 	}
 }

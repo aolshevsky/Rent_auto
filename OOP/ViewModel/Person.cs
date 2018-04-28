@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
+	[DataContract(IsReference = true)]
 	public abstract class Person : INotifyPropertyChanged
 	{
 		private string username;
 		private string password;
-
+		[DataMember]
 		public string UserName
 		{
 			get => username;
@@ -22,6 +24,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public string Password
 		{
 			get => password;

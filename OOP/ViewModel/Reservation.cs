@@ -45,6 +45,7 @@ namespace OOP.ViewModel
 			set
 			{
 				car = value;
+				cars = null;
 				cars = new ObservableCollection<Car>();
 				Cars.Add(car);
 				OnPropertyChanged("Cars");

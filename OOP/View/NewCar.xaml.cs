@@ -60,16 +60,20 @@ namespace OOP.View
 				appviemodel.CarAct.NewCar.Brand = (CarBrands)cbBrande.SelectedItem;
 				appviemodel.CarAct.NewCar.TransmType = (TransmissionType)cbTransmission.SelectedItem;
 				appviemodel.CarAct.NewCar.Type = (CarType)cbType.SelectedItem;
-				appviemodel.CarAct.NewCar.EngineType = (EngineType)cbType.SelectedItem;
+				appviemodel.CarAct.NewCar.EngineType = (EngineType)cbEnergy.SelectedItem;
 			}
 			catch(Exception ex)
 			{
 				MessageBox.Show("Enter empty fields!");
 				return;
 			}
-			if (appviemodel.CarAct.NewCar.IsEmptyFields())
+			try
 			{
-				MessageBox.Show("Enter empty fields!");
+				appviemodel.CarAct.NewCar.IsEmptyFields();
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message);
 				return;
 			}
 			if (add)

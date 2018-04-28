@@ -18,6 +18,13 @@ namespace OOP
 			DataContext = appviemodel;
 		}
 
+		public MainWindow(AppViewModel app)
+		{
+			InitializeComponent();
+			appviemodel = app;
+			DataContext = appviemodel;
+		}
+
 		private void btCancel_Click(object sender, RoutedEventArgs e)
 		{
 			this.Close();

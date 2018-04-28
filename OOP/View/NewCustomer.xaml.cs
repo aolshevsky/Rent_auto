@@ -45,11 +45,15 @@ namespace OOP.View
 				MessageBox.Show("This user is registered. Change user name!");
 				return;
 			}
-			/*if (appviemodel.ClientAct.NewClient.IsEmptyFields())
+			try
 			{
-				MessageBox.Show("Enter empty fields!");
+				appviemodel.ClientAct.NewClient.IsEmptyFields();
+			}
+			catch(Exception reg)
+			{
+				MessageBox.Show(reg.Message);
 				return;
-			}*/
+			}
 			appviemodel.ClientAct.AddClient();
 			this.Close();
 		}

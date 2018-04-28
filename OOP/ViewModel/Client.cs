@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace OOP.ViewModel
@@ -26,8 +27,47 @@ namespace OOP.ViewModel
 		private ObservableCollection<Car> takenCars = new ObservableCollection<Car>();
 		private ObservableCollection<Bill> reservationHistory = new ObservableCollection<Bill>();
 		private ObservableCollection<Bill> currentReserv = new ObservableCollection<Bill>();
-		public static int ID = 0;
+		[DataMember]
+		public static int ID = 7;
+		private int clientId;
+		private double? spentMoney = 0;
 
+		public void IsEmptyFields()
+		{
+			Regex len = new Regex("^.{4,8}$");
+			Regex num = new Regex("\\d");
+			Regex alpha = new Regex("\\D");
+			Regex special = new Regex("[><%#@]");
+			if (City == null || FirstName == null || LastName == null ||
+				 PhoneNumber == null )
+			{
+				throw new Exception("Enter empty fields");
+			}
+			if(Age < 18 || Age > 100)
+			{
+				throw new Exception("You must be 18 years or older to rent a car. Invalid age: 18<age<100");
+			}
+			if(!len.IsMatch(Password))
+			{
+				throw new Exception("Check password: 4<lenght<8, doesn't contains special symbols [><%#@]");
+			}
+			if (!Regex.IsMatch(City, @"^[a-zA-Z]+$"))
+			{
+				throw new Exception("Check city!");
+			}
+			if (!Regex.IsMatch(FirstName, @"^[a-zA-Z]+$"))
+			{
+				throw new Exception("Check FirstName!");
+			}
+			if (!Regex.IsMatch(LastName, @"^[a-zA-Z]+$"))
+			{
+				throw new Exception("Check LastName!");
+			}
+			if (!Regex.IsMatch(PhoneNumber, @"^[0-9]+$"))
+			{
+				throw new Exception("Check PhoneNumber!");
+			}
+		}
 		#endregion
 
 
@@ -43,7 +83,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
-		//[DataMember]
+		[DataMember]
 		public ObservableCollection<Bill> ReservationHistory
 		{
 			get => reservationHistory;
@@ -53,7 +93,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
-		//[DataMember]
+		[DataMember]
 		public ObservableCollection<Bill> CurrentReserv
 		{
 			get => currentReserv;
@@ -63,7 +103,15 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
-		public int ClientId { get; set; }
+		[DataMember]
+		public int ClientId {
+			get => clientId;
+			set
+			{
+				clientId = value;
+				OnPropertyChanged();
+			}
+		}
 		[DataMember]
 		public Sex Sex
 		{
@@ -132,16 +180,20 @@ namespace OOP.ViewModel
 			}
 		}
 		[DataMember]
+		public double? SpentMoney
+		{
+			get => spentMoney;
+			set
+			{
+				spentMoney = value;
+				OnPropertyChanged();
+			}
+		}
 		public int Age
 		{
 			get
 			{
 				TimeSpan age = DateTime.Now - this.DateOfBirth;
-
-				if (age.Days / 365 < 18)
-				{
-					//throw new ArgumentOutOfRangeException("You must be 18 years or older to rent a car.");
-				}
 				return age.Days / 365;
 			}
 		}
@@ -152,11 +204,20 @@ namespace OOP.ViewModel
 		public Client()
 		{
 			DateOfBirth = DateTime.Now;
-			SetId();
 		}
 		public bool CanTake()
 		{
 			return CurrentReserv.Count == 0 ? true : false;
+		}
+		public bool IsNo18()
+		{
+			TimeSpan age = DateTime.Now - this.DateOfBirth;
+
+			if (age.Days / 365 < 18)
+			{
+				return true;
+			}
+			return false;
 		}
 		public Client(string firstName, string lastName)
 		{
@@ -164,5 +225,7 @@ namespace OOP.ViewModel
 			this.LastName = lastName;
 		}
 		public void SetId() => ClientId = ID++;
+		public int PaidReserv => ReservationHistory.Count;
+		
 	}
 }

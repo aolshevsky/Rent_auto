@@ -36,7 +36,7 @@
         <Button x:Name="btCancel" Click="btCancel_Click" Content="Cancel" Background="Crimson" HorizontalAlignment="Left" Margin="558,485,0,0" VerticalAlignment="Top" Width="106"/>
 
 
-        <ComboBox x:Name="cbVehicle" SelectedItem="{Binding BillAct.NewBill.Rent.Car, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CarAct.Cars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="   Pick Car" HorizontalAlignment="Left" Margin="38,322,0,0" VerticalAlignment="Top" Width="110">
+        <ComboBox x:Name="cbVehicle" SelectedItem="{Binding BillAct.NewBill.Rent.Car, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CarAct.TempCars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="   Pick Car" HorizontalAlignment="Left" Margin="38,322,0,0" VerticalAlignment="Top" Width="110">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=FullName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>

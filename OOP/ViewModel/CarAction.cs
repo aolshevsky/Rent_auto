@@ -9,12 +9,13 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
-	
+	[DataContract(IsReference = true)]
 	public class CarAction : INotifyPropertyChanged
 	{
 		public string NextPageC { get; set; }
@@ -59,10 +60,10 @@ namespace OOP.ViewModel
 			get => findText;
 			set
 			{
-				Default();
+				//Default();
 				findText = value;
-				FindByName();
-				Cars.Refresh();
+				
+				//Cars.Refresh();
 				OnPropertyChanged();
 			}
 		}
@@ -87,7 +88,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
-
+		[DataMember]
 		public MyCollection<Car> Cars
 		{
 			get => cars;
@@ -124,6 +125,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public ObservableCollection<Car> TempCars
 		{
 			get => tempCars;
@@ -180,7 +182,7 @@ namespace OOP.ViewModel
 		{
 			AmountOfPages = 0;
 			CurrentPageValue = 0;
-			CurrentPage = new ObservableCollection<Car>(cars.Skip((currentPageValue) * rowInPage).Take(rowInPage).ToArray());
+			CurrentPage = new ObservableCollection<Car>(Cars.Skip((currentPageValue) * rowInPage).Take(rowInPage).ToArray());
 			if (CurrentPage.Count != 0)
 			{
 				SelectedCar = CurrentPage.First();
@@ -191,6 +193,7 @@ namespace OOP.ViewModel
 
 		public void AddCar()
 		{
+			NewCar.SetId();
 			tempCars.Add(NewCar);
 			cars.Add(NewCar);
 		}
@@ -257,7 +260,7 @@ namespace OOP.ViewModel
 		}
 		public void FindByName()
 		{
-			IEnumerable<Car> sequenc = from cr in tempCars.AsParallel()
+			IEnumerable<Car> sequenc = from cr in tempCars
 									   where cr.FullName.ToLower().Contains(findText.ToLower())
 									   select cr;
 			cars = new MyCollection<Car>();

@@ -26,9 +26,10 @@
                             <StackPanel Width="200"  Margin="10" Background="#FFF3F3F3">
                                 <TextBlock Margin="10" FontFamily="Franklin Gothic" FontSize="20" Text="{Binding Path=Brand}" Foreground="Gray"/>
                                 <Image Source="{Binding Path=ImagePath}"  Width="200" Height="150" Stretch="UniformToFill" />
-                                <TextBlock Text="{Binding Path=ID}" FontSize="8" Margin="5" TextWrapping="Wrap" FontFamily="Champagne"/>
+                                <TextBlock Text="{Binding Path=Model}" FontSize="15" Margin="5" TextWrapping="Wrap" FontFamily="Champagne"/>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock Text="{Binding Path=Price}" VerticalAlignment="Center" Margin="10" FontSize="20" FontFamily="Franklin Gothic" Foreground="#FF31577E"/>
+                                    <TextBlock Text="$" VerticalAlignment="Center" FontSize="20" FontFamily="Franklin Gothic" Foreground="#FF31577E"/>
                                     <Button Width="80" Content="Show" FontFamily="Franklin Gothic" Margin="10" Click="Button_Click"/>
                                 </StackPanel>
                             </StackPanel>

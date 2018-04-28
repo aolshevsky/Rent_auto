@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
+	[DataContract(IsReference = true)]
 	public class Bill : INotifyPropertyChanged
 	{
 		public Bill()
 		{
-			SetId();
 		}
 
 		private double? cost;
 		private Reservation rent = new Reservation();
-		public static int id_static = -1;
+		[DataMember]
+		public static int id_static = 14;
 		private int id;
 		private bool isSelected = false;
 
-
+		[DataMember]
 		public Reservation Rent
 		{
 			get => rent;
@@ -32,7 +34,7 @@ namespace OOP.ViewModel
 			}
 		}
 
-
+		[DataMember]
 		public double? Cost
 		{
 			get => cost;
@@ -42,6 +44,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public int ID
 		{
 			get => id;

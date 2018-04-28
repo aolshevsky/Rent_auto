@@ -4,11 +4,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
+	[DataContract(IsReference = true)]
 	public class BillAction : INotifyPropertyChanged
 	{
 		public static ObservableCollection<Bill> bills = new ObservableCollection<Bill>();
@@ -26,6 +28,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public ObservableCollection<Bill> Bills
 		{
 			get => bills;
@@ -35,6 +38,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public ObservableCollection<Bill> PaidBills
 		{
 			get => paidBills;
@@ -56,6 +60,7 @@ namespace OOP.ViewModel
 
 		public void AddReservation()
 		{
+			newBill.SetId();
 			newBill.Rent.TransformExtras();
 			newBill.CalculateTotalCost();
 			newBill.Rent.Client.TakenCars.Add(newBill.Rent.Car);
@@ -68,7 +73,7 @@ namespace OOP.ViewModel
 		public void DeleteReservation()
 		{
 			ObservableCollection<Bill> iterBills = new ObservableCollection<Bill>();
-			foreach(Bill bl in Bills)
+			foreach (Bill bl in Bills)
 			{
 				iterBills.Add(bl);
 			}
@@ -76,9 +81,29 @@ namespace OOP.ViewModel
 			{
 				if (bill.IsSelected)
 				{
+					bill.Rent.Client.TakenCars.Remove(bill.Rent.Car);
 					bill.Rent.Client.ReservationHistory.Add(bill);
 					bill.Rent.Client.CurrentReserv.Remove(bill);
+					bill.Rent.Client.SpentMoney += bill.Cost;
 					paidBills.Add(bill);
+					Bills.Remove(bill);
+				}
+			}
+
+		}
+		public void OnlyDeleteReservation()
+		{
+			ObservableCollection<Bill> iterBills = new ObservableCollection<Bill>();
+			foreach (Bill bl in Bills)
+			{
+				iterBills.Add(bl);
+			}
+			foreach (Bill bill in iterBills)
+			{
+				if (bill.IsSelected)
+				{
+					bill.Rent.Client.CurrentReserv.Remove(bill);
+					bill.Rent.Client.TakenCars.Remove(bill.Rent.Car);
 					Bills.Remove(bill);
 				}
 			}
@@ -92,7 +117,7 @@ namespace OOP.ViewModel
 
 		public void SelectedAllBills()
 		{
-			foreach(Bill bill in Bills)
+			foreach (Bill bill in Bills)
 			{
 				bill.IsSelected = isAllBillSelected;
 			}

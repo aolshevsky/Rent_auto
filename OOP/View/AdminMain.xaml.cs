@@ -27,6 +27,7 @@ namespace OOP.View
 			if (!appviemodel.IsAdmin)
 			{
 				NewClient.Visibility = Visibility.Collapsed;
+				lvClients.Visibility = Visibility.Collapsed;
 				tbHi.Text = "Hi! " + appviemodel.CurrenUser.FirstName;
 			}
 
@@ -39,7 +40,7 @@ namespace OOP.View
 		}
 		private void btLogout(object sender, RoutedEventArgs e)
 		{
-			MainWindow log = new MainWindow();
+			MainWindow log = new MainWindow(appviemodel);
 			log.Show();
 			Close();
 		}
@@ -67,6 +68,7 @@ namespace OOP.View
 					svHistory.Visibility = Visibility.Collapsed;
 					svReservUser.Visibility = Visibility.Collapsed;
 					svHistoryAdmin.Visibility = Visibility.Collapsed;
+					svClentsAdmin.Visibility = Visibility.Collapsed;
 					break;
 				case 1:
 					GridPrincipal.Children.Clear();
@@ -81,6 +83,7 @@ namespace OOP.View
 					svHistory.Visibility = Visibility.Collapsed;
 					svReservUser.Visibility = Visibility.Collapsed;
 					svHistoryAdmin.Visibility = Visibility.Collapsed;
+					svClentsAdmin.Visibility = Visibility.Collapsed;
 					break;
 				case 2:
 					GridPrincipal.Children.Clear();
@@ -94,6 +97,7 @@ namespace OOP.View
 					stSearch.Visibility = Visibility.Collapsed;
 					svHistory.Visibility = Visibility.Collapsed;
 					svHistoryAdmin.Visibility = Visibility.Collapsed;
+					svClentsAdmin.Visibility = Visibility.Collapsed;
 					break;
 				case 3:
 					GridPrincipal.Children.Clear();
@@ -104,6 +108,7 @@ namespace OOP.View
 					stSearch.Visibility = Visibility.Collapsed;
 					svReservUser.Visibility = Visibility.Collapsed;
 					svHistoryAdmin.Visibility = Visibility.Collapsed;
+					svClentsAdmin.Visibility = Visibility.Collapsed;
 					if (appviemodel.IsAdmin)
 					{
 						NewCustomer nc = new NewCustomer(appviemodel);
@@ -122,9 +127,24 @@ namespace OOP.View
 					stAddEditRemRes.Visibility = Visibility.Collapsed;
 					stSearch.Visibility = Visibility.Collapsed;
 					svReservUser.Visibility = Visibility.Collapsed;
+					svClentsAdmin.Visibility = Visibility.Collapsed;
 					if (appviemodel.IsAdmin)
 					{
 						svHistoryAdmin.Visibility = Visibility.Visible;
+					}
+					break;
+				case 5:
+					GridPrincipal.Children.Clear();
+					stPages.Visibility = Visibility.Collapsed;
+					stAddEdit.Visibility = Visibility.Collapsed;
+					svReserv.Visibility = Visibility.Collapsed;
+					stAddEditRemRes.Visibility = Visibility.Collapsed;
+					stSearch.Visibility = Visibility.Collapsed;
+					svReservUser.Visibility = Visibility.Collapsed;
+					svHistoryAdmin.Visibility = Visibility.Collapsed;
+					if (appviemodel.IsAdmin)
+					{
+						svClentsAdmin.Visibility = Visibility.Visible;
 					}
 					break;
 
@@ -143,9 +163,16 @@ namespace OOP.View
 
 		private void btEdit(object sender, RoutedEventArgs e)
 		{
-			appviemodel.CarAct.EditCar();
-			NewCar ac = new NewCar(appviemodel, false);
-			ac.ShowDialog();
+			if (ListViewMenu.SelectedIndex == 1)
+			{
+				appviemodel.CarAct.EditCar();
+				NewCar ac = new NewCar(appviemodel, false);
+				ac.ShowDialog();
+			}
+			else
+			{
+				appviemodel.BillAct.OnlyDeleteReservation();
+			}
 		}
 
 		private void btAdd(object sender, RoutedEventArgs e)
@@ -202,6 +229,7 @@ namespace OOP.View
 		public void Button_Click(object sender, RoutedEventArgs e)
 		{
 			GridPrincipal.Children.Clear();
+			appviemodel.CarAct.FindByName();
 			appviemodel.CarAct.RefreshPages();
 			GridPrincipal.Children.Add(new UserControl1(appviemodel));
 			stPages.Visibility = Visibility.Visible;
@@ -211,5 +239,9 @@ namespace OOP.View
 			stSearch.Visibility = Visibility.Visible;
 		}
 
+		private void Open(object sender, RoutedEventArgs e)
+		{
+			appviemodel.PrepCar();
+		}
 	}
 }

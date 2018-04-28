@@ -39,7 +39,7 @@
             <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.Year}" Foreground="#3498db" Height="30" Width="100" Margin="550,291,70,119"/>
 
             <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="km/l:" Foreground="#95a5a6" Height="30" Width="100" Margin="429,334,191,76"/>
-            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.Year}" Foreground="#3498db" Height="30" Width="100" Margin="550,334,70,76"/>
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.FuelConsumtionPerHundredKm}" Foreground="#3498db" Height="30" Width="100" Margin="550,334,70,76"/>
             <Button x:Name="btAdd" Click="btAdd_Click" Content="Rent this car" HorizontalAlignment="Left" Margin="39,369,0,0" VerticalAlignment="Top" Width="140" Height="43"/>
 
 
