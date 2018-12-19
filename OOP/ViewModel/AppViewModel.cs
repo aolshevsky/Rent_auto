@@ -57,7 +57,7 @@ namespace OOP.ViewModel
 			carAct.AppVM = this;
 			this.dialogService = new DefaultDialogService();
 			OpenFiles();
-			carAct.RefreshPages();
+			carAct.Default();
 		}
 		public BillAction BillAct
 		{

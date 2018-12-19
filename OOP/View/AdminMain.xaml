@@ -342,7 +342,7 @@
                 <ListViewItem x:Name="lvHistory" Height="40">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="History" Width="20" Height="20" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="History rent" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                        <TextBlock Text="History of orders" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="lvClients" Height="40">

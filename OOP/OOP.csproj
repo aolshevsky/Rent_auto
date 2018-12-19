@@ -79,6 +79,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\DefaultDialogService.cs" />
+    <Compile Include="Model\EmptyField.cs" />
     <Compile Include="Model\HotKey.cs" />
     <Compile Include="Model\MyCollection.cs" />
     <Compile Include="Model\RelayCommand.cs" />

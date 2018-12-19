@@ -37,8 +37,8 @@
                                                                MaxLength="255" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
                     <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.ReturnDate}"
-                                                        Header="Drop off date"
-                                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                                                               Header="Drop off date"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
                     <materialDesign:MaterialDataGridTextColumn Binding="{Binding Rent.ReturnLoc}"
                                                                Header="LocationD"
                                                                MaxLength="255" 

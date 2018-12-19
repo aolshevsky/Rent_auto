@@ -40,7 +40,6 @@ namespace OOP.ViewModel
 		{
 			NewClient.SetId();
 			clients.Add(NewClient);
-
 		}
 		public bool CheckUserLog()
 		{

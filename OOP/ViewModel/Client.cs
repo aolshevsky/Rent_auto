@@ -28,7 +28,7 @@ namespace OOP.ViewModel
 		private ObservableCollection<Bill> reservationHistory = new ObservableCollection<Bill>();
 		private ObservableCollection<Bill> currentReserv = new ObservableCollection<Bill>();
 		[DataMember]
-		public static int ID = 7;
+		public static int ID = 1;
 		private int clientId;
 		private double? spentMoney = 0;
 
@@ -49,7 +49,7 @@ namespace OOP.ViewModel
 			}
 			if(!len.IsMatch(Password))
 			{
-				throw new Exception("Check password: 4<lenght<8, doesn't contains special symbols [><%#@]");
+				throw new Exception("Check password: 4<lenght<8");
 			}
 			if (!Regex.IsMatch(City, @"^[a-zA-Z]+$"))
 			{

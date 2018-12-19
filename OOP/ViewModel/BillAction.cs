@@ -66,8 +66,6 @@ namespace OOP.ViewModel
 			newBill.Rent.Client.TakenCars.Add(newBill.Rent.Car);
 			newBill.Rent.Client.CurrentReserv.Add(newBill);
 			Bills.Add(newBill);
-
-
 		}
 
 		public void DeleteReservation()
@@ -89,7 +87,6 @@ namespace OOP.ViewModel
 					Bills.Remove(bill);
 				}
 			}
-
 		}
 		public void OnlyDeleteReservation()
 		{

@@ -56,11 +56,6 @@ namespace OOP.View
 		}
 		private void btCalculate_Click(object sender, RoutedEventArgs e)
 		{
-			if (!appviemodel.BillAct.NewBill.Rent.Client.CanTake())
-			{
-				MessageBox.Show("This client have unpaid rent, pay, before creating a new rent!");
-				return;
-			}
 			if (!appviemodel.BillAct.NewBill.Rent.CheckDate())
 			{
 				MessageBox.Show("Enter correct date!");
@@ -71,8 +66,22 @@ namespace OOP.View
 				MessageBox.Show("Enter empty fields!");
 				return;
 			}
-			appviemodel.BillAct.NewBill.Rent.PickupLoc = (Location)cbPickupLoc.SelectedItem;
-			appviemodel.BillAct.NewBill.Rent.ReturnLoc = (Location)cbReturnLoc.SelectedItem;
+			if (!appviemodel.BillAct.NewBill.Rent.Client.CanTake())
+			{
+				MessageBox.Show("This client have unpaid rent, pay, before creating a new rent!");
+				return;
+			}
+			try
+			{
+				appviemodel.BillAct.NewBill.Rent.PickupLoc = (Location)cbPickupLoc.SelectedItem;
+				appviemodel.BillAct.NewBill.Rent.ReturnLoc = (Location)cbReturnLoc.SelectedItem;
+			}
+			catch
+			{
+				MessageBox.Show("Enter locations");
+				return;
+			}
+
 			appviemodel.BillAct.AddReservation();
 			this.Close();
 		}

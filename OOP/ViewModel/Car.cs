@@ -33,8 +33,11 @@ namespace OOP.ViewModel
 		#endregion
 
 
-		public Car(EngineType engineType, CarBrands brand, int year, double price, int numberOfSeats, double fuelConsumtionPerHundredKm,
-					string model, CarType type, TransmissionType transmType)
+		public Car(EngineType engineType, CarBrands brand, int year,
+					double price, int numberOfSeats,
+					double fuelConsumtionPerHundredKm,
+					string model, CarType type,
+					TransmissionType transmType)
 		{
 			this.Model = model;
 			this.Type = type;
@@ -209,7 +212,7 @@ namespace OOP.ViewModel
 			{
 				throw new Exception("Enter empty fields!");
 			}
-			if (!Regex.IsMatch(Model, @"^[a-zA-Z]+$"))
+			if (!Regex.IsMatch(Model, @"^[a-zA-Z0-9]+$"))
 			{
 				throw new Exception("Check model!");
 			}

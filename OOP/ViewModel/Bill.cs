@@ -19,7 +19,7 @@ namespace OOP.ViewModel
 		private double? cost;
 		private Reservation rent = new Reservation();
 		[DataMember]
-		public static int id_static = 14;
+		public static int id_static = 1;
 		private int id;
 		private bool isSelected = false;
 
