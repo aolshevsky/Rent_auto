@@ -1,0 +1,50 @@
+﻿<Window x:Class="OOP.View.ShowCar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOP.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+       Height="480" Width="720" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"  WindowStyle="None">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF0069C0" Height="10" Margin="0,0,0,31"/>
+        <Button Grid.Row="0" HorizontalAlignment="Right" x:Name="ButtonFechar" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="btCancel_Click">
+            <materialDesign:PackIcon Kind="Power" Height="20"/>
+        </Button>
+        <Grid Grid.Row="1">
+            <!--Image Source="{Binding CarAct.SelectedCar.ImagePath}" HorizontalAlignment="Left" Margin="150 0"/-->
+            <Image Source="{Binding CarAct.SelectedCar.ImagePath, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" Height="300"  Width="400" Margin="0,64,320,76"/>
+            <TextBlock FontSize="25" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.FullName}" Foreground="#3498db" VerticalAlignment="Top" Height="50" Width="200"/>
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="Type:" Foreground="#95a5a6" Height="30" Width="100" Margin="429,66,191,324"/>
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.Type}" Foreground="#3498db" Height="30" Width="100" Margin="550,76,70,334"/>
+
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="Air conditioner:" Foreground="#95a5a6" Height="30" Margin="418,119,173,291"/>
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.AirConditin}" Foreground="#3498db" Height="30" Width="100" Margin="550,121,70,289"/>
+
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="Seats:" Foreground="#95a5a6" Height="30" Width="100" Margin="429,160,191,250"/>
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.NumberOfSeats}" Foreground="#3498db" Height="30" Width="100" Margin="550,162,70,248"/>
+
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="Transmission:" Foreground="#95a5a6" Height="30" Margin="416,205,182,205"/>
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.TransmType}" Foreground="#3498db" Height="30" Width="100" Margin="550,205,70,205"/>
+
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="Engine:" Foreground="#95a5a6" Height="30" Width="100" Margin="429,248,191,162"/>
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.EngineType}" Foreground="#3498db" Height="30" Width="100" Margin="550,248,70,162"/>
+
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="Year:" Foreground="#95a5a6" Height="30" Width="100" Margin="429,291,191,119"/>
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.Year}" Foreground="#3498db" Height="30" Width="100" Margin="550,291,70,119"/>
+
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="km/l:" Foreground="#95a5a6" Height="30" Width="100" Margin="429,334,191,76"/>
+            <TextBlock FontSize="20" FontFamily="Franklin Gothic" Text="{Binding CarAct.SelectedCar.FuelConsumtionPerHundredKm}" Foreground="#3498db" Height="30" Width="100" Margin="550,334,70,76"/>
+            <Button x:Name="btAdd" Click="btAdd_Click" Content="Rent this car" HorizontalAlignment="Left" Margin="39,369,0,0" VerticalAlignment="Top" Width="140" Height="43"/>
+
+
+        </Grid>
+
+
+    </Grid>
+</Window>

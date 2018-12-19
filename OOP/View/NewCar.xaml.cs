@@ -23,28 +23,63 @@ namespace OOP.View
 	public partial class NewCar : Window
 	{
 		AppViewModel appviemodel;
-
-		public NewCar(AppViewModel app)
+		bool add;
+		public NewCar(AppViewModel app, bool add)
 		{
 			InitializeComponent();
 			DataContext = app;
 			appviemodel = app;
+			this.add = add;
 			cbBrande.ItemsSource = Enum.GetValues(typeof(CarBrands)).Cast<CarBrands>();
 			cbTransmission.ItemsSource = Enum.GetValues(typeof(TransmissionType)).Cast<TransmissionType>();
 			cbType.ItemsSource = Enum.GetValues(typeof(CarType)).Cast<CarType>();
-			appviemodel.CarAct.NewCar = null;
-			appviemodel.CarAct.NewCar = new Car();
+			cbEnergy.ItemsSource = Enum.GetValues(typeof(EngineType)).Cast<EngineType>();
+			if (add)
+			{
+				appviemodel.CarAct.NewCar = null;
+				appviemodel.CarAct.NewCar = new Car();
+			}
+			else
+			{
+				SetSeats();
+				cbBrande.SelectedItem = appviemodel.CarAct.NewCar.Brand;
+				cbTransmission.SelectedItem = appviemodel.CarAct.NewCar.TransmType;
+				cbType.SelectedItem = appviemodel.CarAct.NewCar.Type;
+				cbEnergy.SelectedItem = appviemodel.CarAct.NewCar.EngineType;
+				tbMain.Text = " EDIT CAR";
+				btCancel.Visibility = Visibility.Collapsed;
+				btAdd.Content = "EDIT";
+			}
+		
 		}
 		private void btAdd_Click(object sender, RoutedEventArgs e)
 		{
-			appviemodel.CarAct.NewCar.NumberOfSeats = Seats();
-			appviemodel.CarAct.NewCar.Brand = (CarBrands)cbBrande.SelectedItem;
-			if (appviemodel.CarAct.NewCar.IsEmptyFields())
+			try
+			{
+				appviemodel.CarAct.NewCar.NumberOfSeats = Seats();
+				appviemodel.CarAct.NewCar.Brand = (CarBrands)cbBrande.SelectedItem;
+				appviemodel.CarAct.NewCar.TransmType = (TransmissionType)cbTransmission.SelectedItem;
+				appviemodel.CarAct.NewCar.Type = (CarType)cbType.SelectedItem;
+				appviemodel.CarAct.NewCar.EngineType = (EngineType)cbEnergy.SelectedItem;
+			}
+			catch(Exception ex)
 			{
 				MessageBox.Show("Enter empty fields!");
 				return;
 			}
-			appviemodel.CarAct.AddCar();
+			try
+			{
+				appviemodel.CarAct.NewCar.IsEmptyFields();
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				return;
+			}
+			if (add)
+			{
+				appviemodel.CarAct.AddCar();
+			}
 			this.Close();
 		}
 		private void btCancel_Click(object sender, RoutedEventArgs e)
@@ -66,6 +101,21 @@ namespace OOP.View
 				return 6;
 			}
 			return 0;
+		}
+		private void SetSeats()
+		{
+			if(appviemodel.CarAct.NewCar.NumberOfSeats == 2)
+			{
+				rbSeats2.IsChecked = true;
+			}
+			else if (appviemodel.CarAct.NewCar.NumberOfSeats == 4)
+			{
+				rbSeats4.IsChecked = true;
+			}
+			else if (appviemodel.CarAct.NewCar.NumberOfSeats == 6)
+			{
+				rbSeats6.IsChecked = true;
+			}
 		}
 
 	}

@@ -5,30 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OOP"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="300" Width="600" Foreground="White" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
-
+    Title="Login" Height="370" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="80" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#FF0069C0" Height="10" Margin="0,0,0,31"/>
-        <Button Grid.Row="0" HorizontalAlignment="Right" x:Name="ButtonFechar" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonFechar_Click">
-            <materialDesign:PackIcon Kind="Power" Height="20"/>
-        </Button>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button x:Name="btAdmin" Height="180" Width="300" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="#FF31577E" Click="btAdmin_Click">
-                <materialDesign:PackIcon Kind="AccountKey" Foreground="#FF0069C0" Height="180" Width="300"/>
-            </Button>
-            <Button x:Name="btKorisnik" Height="180" Width="300" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="#FF31577E" Click="btUser_Click">
-                <materialDesign:PackIcon Kind="Account" Foreground="#FF0069C0" Height="180" Width="300"/>
-            </Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"  Grid.Row="2">
-            <TextBlock Foreground="Gray" Height="100" Width="300" TextAlignment="Center" FontSize="50">ADMIN</TextBlock>
-            <TextBlock Foreground="Gray" Height="100" Width="300" TextAlignment="Center" FontSize="50" >USER</TextBlock>
-        </StackPanel>
+        <TextBlock Margin="20,50,5,0" TextWrapping="Wrap" Height="46" FontSize="36" FontFamily="Franklin Gothic" Text="Sign in to your account" Foreground="#95a5a6" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding User}" Width="300" materialDesign:HintAssist.Hint="Username" Margin="60,155,32,185"/>
+        <materialDesign:PackIcon Kind="Account" Foreground="Gray" Height="31" Width="30" Margin="25,155,0,0" RenderTransformOrigin="0.5,2.645"/>
+        <PasswordBox x:Name="txtPassword" Width="300" materialDesign:HintAssist.Hint="Password" Margin="60,198,32,138"/>
+        <materialDesign:PackIcon Kind="Key" Foreground="Gray" Height="31" Width="30" Margin="25,200,0,0"></materialDesign:PackIcon>
+        <Button x:Name="btLogin" Content="LOGIN" HorizontalAlignment="Left" Margin="25,300,0,0" VerticalAlignment="Top" Width="212" Height="42" Click="btLogin_Click"/>
+        <Button x:Name="btCancel" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="280,300,0,0" Background="Crimson" Click="btCancel_Click" Height="42"/>
+        <Button Content="Join to car rent?" HorizontalAlignment="Left" Margin="12,242,0,0" VerticalAlignment="Top" Width="178" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#95a5a6" Click="btForgot_Click" />
     </Grid>
 </Window>

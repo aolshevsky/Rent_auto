@@ -28,6 +28,8 @@ namespace OOP.View
 			InitializeComponent();
 			DataContext = app;
 			appviemodel = app;
+			appviemodel.ClientAct.NewClient = null;
+			appviemodel.ClientAct.NewClient = new Client();
 		}
 
 		private void btDelete_Click(object sender, RoutedEventArgs e)
@@ -38,11 +40,20 @@ namespace OOP.View
 		{
 			appviemodel.ClientAct.NewClient.Sex = (Sex)(RadioButtonGender());
 			appviemodel.ClientAct.NewClient.Password = txtPass.Password.ToString();
-			/*if (appviemodel.ClientAct.NewClient.IsEmptyFields())
+			if (appviemodel.ClientAct.CheckUserLog())
 			{
-				MessageBox.Show("Enter empty fields!");
+				MessageBox.Show("This user is registered. Change user name!");
 				return;
-			}*/
+			}
+			try
+			{
+				appviemodel.ClientAct.NewClient.IsEmptyFields();
+			}
+			catch(Exception reg)
+			{
+				MessageBox.Show(reg.Message);
+				return;
+			}
 			appviemodel.ClientAct.AddClient();
 			this.Close();
 		}

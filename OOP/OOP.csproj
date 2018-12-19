@@ -46,9 +46,15 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -72,6 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DefaultDialogService.cs" />
+    <Compile Include="Model\EmptyField.cs" />
+    <Compile Include="Model\HotKey.cs" />
+    <Compile Include="Model\MyCollection.cs" />
     <Compile Include="Model\RelayCommand.cs" />
     <Compile Include="ViewModel\AdminAuthorization.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
@@ -86,7 +96,8 @@
     <Compile Include="ViewModel\Enumerations\Location.cs" />
     <Compile Include="ViewModel\Enumerations\Sex.cs" />
     <Compile Include="ViewModel\Enumerations\TransmissionType.cs" />
-    <Compile Include="ViewModel\ReserAction.cs" />
+    <Compile Include="ViewModel\BillAction.cs" />
+    <Compile Include="ViewModel\Person.cs" />
     <Compile Include="ViewModel\Reservation.cs" />
     <Compile Include="View\AdminMain.xaml.cs">
       <DependentUpon>AdminMain.xaml</DependentUpon>
@@ -102,6 +113,15 @@
     </Compile>
     <Compile Include="View\NewReservation.xaml.cs">
       <DependentUpon>NewReservation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShowCar.xaml.cs">
+      <DependentUpon>ShowCar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UseControlReservation.xaml.cs">
+      <DependentUpon>UseControlReservation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControlCar.xaml.cs">
       <DependentUpon>UserControlCar.xaml</DependentUpon>
@@ -138,6 +158,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ShowCar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UseControlReservation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControlCar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,7 +193,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -173,7 +204,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\audi.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\porsche.png" />
     <Resource Include="Assets\porsche1.png" />
@@ -187,6 +220,23 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\main_car.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\bmw1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\bmw2.jpg" />
+    <Resource Include="Assets\bmw4.jpg" />
+    <Resource Include="Assets\bmw5.jpg" />
+    <Resource Include="Assets\check.jpg" />
+    <Resource Include="Assets\main_add_car.jpg" />
+    <Resource Include="Assets\main_add_car1.jpg" />
+    <Resource Include="Assets\main_add_car2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\porsche3.jpg" />
+    <Resource Include="Assets\porsche4.jpg" />
+    <Resource Include="Assets\porsche5.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,17 +4,28 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OOP.ViewModel
 {
+	[DataContract(IsReference = true)]
 	public class ClientAction : INotifyPropertyChanged
 	{
 
 		public static ObservableCollection<Client> clients = new ObservableCollection<Client>();
 		private Client newClient = new Client();
-
+		[DataMember]
+		public ObservableCollection<Client> Сlients
+		{
+			get => clients;
+			set
+			{
+				clients = value;
+				OnPropertyChanged();
+			}
+		}
 		public Client NewClient
 		{
 			get => newClient;
@@ -27,18 +38,19 @@ namespace OOP.ViewModel
 
 		public void AddClient()
 		{
+			NewClient.SetId();
 			clients.Add(NewClient);
-
 		}
-
-		public void DeleteCar()
+		public bool CheckUserLog()
 		{
-
-		}
-
-		public void EditCar()
-		{
-
+			foreach (Client cl in Сlients)
+			{
+				if (cl.UserName == NewClient.UserName)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

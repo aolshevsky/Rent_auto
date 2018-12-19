@@ -7,14 +7,15 @@ using OOP.ViewModel.Enumerations;
 using System.IO;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace OOP.ViewModel
 {
+	[DataContract(IsReference = true)]
 	public class Car : INotifyPropertyChanged
 	{
 		#region fields
-		private int numberInUse;
-		private int numberReserved;
 		private string model;
 		private int numberOfSeats;
 		private double? price;
@@ -22,6 +23,9 @@ namespace OOP.ViewModel
 		private bool airConditin;
 		private double? fuelConsumtionPerHundredKm;
 		private string imageName;
+		[DataMember]
+		public static int id_static = 19;
+		private int id;
 		private CarBrands brand;
 		private TransmissionType transmType;
 		private EngineType engineType;
@@ -29,8 +33,11 @@ namespace OOP.ViewModel
 		#endregion
 
 
-		public Car(EngineType engineType, CarBrands brand, int year, double price, int numberOfSeats, double fuelConsumtionPerHundredKm,
-					string model, CarType type, TransmissionType transmType)
+		public Car(EngineType engineType, CarBrands brand, int year,
+					double price, int numberOfSeats,
+					double fuelConsumtionPerHundredKm,
+					string model, CarType type,
+					TransmissionType transmType)
 		{
 			this.Model = model;
 			this.Type = type;
@@ -45,10 +52,22 @@ namespace OOP.ViewModel
 
 		public Car()
 		{
+			
 		}
 
 
 		#region properties
+		[DataMember]
+		public int ID
+		{
+			get => id;
+			set
+			{
+				id = value;
+				OnPropertyChanged();
+			}
+		}
+
 		public string ImagePath
 		{
 			get
@@ -60,7 +79,7 @@ namespace OOP.ViewModel
 				}
 				else if (File.Exists(directory + "//" + imageName + ".png"))
 				{
-					return directory + "//" + imageName + ".jpg";
+					return directory + "//" + imageName + ".png";
 				}
 				else
 				{
@@ -68,6 +87,7 @@ namespace OOP.ViewModel
 				}
 			}
 		}
+		[DataMember]
 		public string ImageName
 		{
 			get => imageName;
@@ -77,6 +97,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public bool AirConditin
 		{
 			get => airConditin;
@@ -86,6 +107,8 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+
+		[DataMember]
 		public string Model
 		{
 			get => model;
@@ -95,31 +118,27 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public int NumberOfSeats
 		{
 			get => numberOfSeats;
 			set
 			{
-				if (value < 1)
-				{
-					//throw new ArgumentOutOfRangeException("Number of seats in the vehicle must be at least 1.");
-				}
 				numberOfSeats = value;
+				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public double? Price
 		{
 			get => price;
 			set
 			{
-				if (value < 0)
-				{
-					//throw new ArgumentOutOfRangeException("Price of the car must be a positive number to 0.");
-				}
 				price = value;
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public double? FuelConsumtionPerHundredKm
 		{
 			get => fuelConsumtionPerHundredKm;
@@ -129,6 +148,7 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public int? Year
 		{
 			get => year;
@@ -139,40 +159,69 @@ namespace OOP.ViewModel
 				OnPropertyChanged();
 			}
 		}
+		[DataMember]
 		public CarBrands Brand
 		{
 			get => brand;
-			set => brand = value;
+			set
+			{
+				brand = value;
+				OnPropertyChanged();
+			}
 		}
+		[DataMember]
 		public TransmissionType TransmType
 		{
 			get => transmType;
-			set => transmType = value;
+			set
+			{
+				transmType = value;
+				OnPropertyChanged();
+			}
 		}
+		[DataMember]
 		public EngineType EngineType
 		{
 			get => engineType;
-			set => engineType = value;
+			set
+			{
+				engineType = value;
+				OnPropertyChanged();
+			}
 		}
+		[DataMember]
 		public CarType Type
 		{
 			get => type;
-			set => type = value;
+			set
+			{
+				type = value;
+				OnPropertyChanged();
+			}
 		}
+		public string BrandAndModel => Brand + " " + Model; 
 
 
 		#endregion
 
-		public bool IsEmptyFields()
+		public void IsEmptyFields()
 		{
+			Regex len = new Regex("^.{4,4}$");
 			if (Model == "" || Year == null || FuelConsumtionPerHundredKm == null ||
 				Price == null || ImageName == "" || numberOfSeats == 0)
 			{
-				return true;
+				throw new Exception("Enter empty fields!");
 			}
-			return false;
+			if (!Regex.IsMatch(Model, @"^[a-zA-Z0-9]+$"))
+			{
+				throw new Exception("Check model!");
+			}
+			if (Year < 1950 && Year > DateTime.Now.Year)
+			{
+				throw new Exception("Check year!");
+			}
+			
 		}
-
 		public override string ToString()
 		{
 			StringBuilder toString = new StringBuilder();
@@ -197,7 +246,8 @@ namespace OOP.ViewModel
 
 			return toString.ToString();
 		}
-
+		public void SetId() => id = id_static++;
+		public string FullName => Brand.ToString() + " " + Model; 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
