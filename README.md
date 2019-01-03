@@ -7,9 +7,9 @@
 •	  Database based on file system in .json format (The ability to serialize and deserialize objects).
 
 •	**For user:**
-  1.	Просмотр информации о доступном ему парке машин (просмотр их характеристик).
-  2.  Просмотр своей истории заказов, потраченных средств,
-  3.  Просмотр текущего заказа для подтверждения или отклонения бронирования.
+  1.	View information about the available car park (view their characteristics).
+  2.  View your order history, spent money.
+  3.  View current order to confirm or reject a reservation.
   
 •	**For admin:**
   1.	Manage all car rental entities
